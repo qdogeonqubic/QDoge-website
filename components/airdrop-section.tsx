@@ -34,7 +34,10 @@ export function AirdropSection() {
   }, []);
 
   return (
-    <section id='airdrop-section' className='airdrop'>
+    <section
+      id='airdrop-section'
+      className='airdrop aspect-auto! md:aspect-[394 / 768]!'
+    >
       {/* Background */}
       <div className='airdrop__bg'>
         <img
@@ -46,7 +49,10 @@ export function AirdropSection() {
       </div>
 
       {/* Container */}
-      <div ref={containerRef} className='airdrop__container'>
+      <div
+        ref={containerRef}
+        className='airdrop__container space-y-6! md:space-y-0!'
+      >
         {/* Main Content */}
         <div ref={mainRef} className='airdrop__main'>
           <div className='airdrop__main-label'>
