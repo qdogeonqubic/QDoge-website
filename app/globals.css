@@ -24,3 +24,57 @@ body {
   color: var(--foreground);
   font-family: Arial, Helvetica, sans-serif;
 }
+
+@keyframes mainAnim1 {
+    0% {
+        opacity: 0;
+        visibility: hidden
+    }
+
+    25% {
+        opacity: 1;
+        visibility: visible
+    }
+
+    50% {
+        opacity: 0;
+        visibility: hidden
+    }
+
+    70% {
+        opacity: 1;
+        visibility: visible
+    }
+
+    90% {
+        opacity: 0;
+        visibility: hidden
+    }
+
+    to {
+        opacity: 1;
+        visibility: visible
+    }
+}
+
+@keyframes mainAnim2 {
+    0% {
+        opacity: 0;
+        visibility: hidden
+    }
+
+    35% {
+        opacity: 1;
+        visibility: visible
+    }
+
+    70% {
+        opacity: 0;
+        visibility: hidden
+    }
+
+    to {
+        opacity: 1;
+        visibility: visible
+    }
+}
