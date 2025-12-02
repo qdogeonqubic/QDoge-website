@@ -8,7 +8,6 @@ import { useScrollAnimation } from '@/hooks/useScrollAnimation';
 import {
   TwitterLogoIcon,
   DiscordLogoIcon,
-  GitHubLogoIcon,
 } from '@radix-ui/react-icons';
 
 const FooterSection: React.FC = () => {
@@ -28,20 +27,20 @@ const FooterSection: React.FC = () => {
   const socialLinks = [
     {
       name: 'Twitter / X',
-      href: 'https://x.com/qdoge',
+      href: 'https://x.com/QDogeOnQubic',
       icon: TwitterLogoIcon,
       color: 'hover:text-cyan-400',
     },
     {
       name: 'Discord',
-      href: 'https://discord.gg/qdoge',
+      href: 'https://discord.gg/rZd5JW4Vjt',
       icon: DiscordLogoIcon,
       color: 'hover:text-blue-400',
     },
     {
-      name: 'Github',
-      href: 'https://github.com/qdoge',
-      icon: GitHubLogoIcon,
+      name: 'Zealy',
+      href: 'https://zealy.io/cw/qdoge',
+      image: '/zealy_icon.png',
       color: 'hover:text-purple-400',
     },
   ];
@@ -105,7 +104,15 @@ const FooterSection: React.FC = () => {
                   className={`p-3 bg-gray-900/50 border border-gray-700 hover:border-cyan-400/50 transition-all duration-300 ${social.color} hover:scale-110 backdrop-blur-sm`}
                   aria-label={social.name}
                 >
-                  <social.icon className='w-5 h-5' />
+                  {social.image ? (
+                    <img
+                      src={social.image}
+                      alt={social.name}
+                      className='w-5 h-5 object-contain brightness-0 invert'
+                    />
+                  ) : social.icon ? (
+                    <social.icon className='w-5 h-5' />
+                  ) : null}
                 </a>
               ))}
             </div>

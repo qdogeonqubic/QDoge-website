@@ -7,9 +7,9 @@ import React from 'react';
 
 const AboutSection: React.FC = () => {
   const socialButtons = [
-    { icon: '𝕏', label: 'X', href: 'https://x.com/qdoge' },
+    { icon: '𝕏', label: 'X', href: 'https://x.com/QDogeOnQubic' },
     { icon: '✈', label: 'Telegram', href: 'https://t.me/qdoge' },
-    { icon: '💀', label: 'Discord', href: 'https://discord.gg/qdoge' },
+    { icon: '💀', label: 'Discord', href: 'https://discord.gg/rZd5JW4Vjt' },
   ];
 
   return (
@@ -115,7 +115,7 @@ const AboutSection: React.FC = () => {
                     {[
                       "a futuristic ai robotic shiba inu, sent from the future by anna's consciousness. born from qubic's overclocked mining rigs in aigarth's yard. mission: prepare the qubic community for the ultimate dogecoin mining conquest.",
                       "after monero, qubic's eyes turned toward dogecoin. doge is a giant defended by massive hashpower and entrenched asic miners. success requires more than brute force: preparation, unity, and strategy.",
-                      'join the kennel club. train for 56 weeks. fetch, stay, bark. earn treats and rewards. prepare for the 2027 doge mining revolution.',
+                      'join the kennel club. train for 56 weeks. fetch, stay, bark. earn treats and rewards. prepare for the 2026 doge mining revolution.',
                     ].map((text, index) => (
                       <motion.p
                         key={index}
@@ -229,32 +229,14 @@ const AboutSection: React.FC = () => {
                 },
               }}
             >
-              <MagicCard className='border-2 border-cyan-400/60 bg-black/80 backdrop-blur-sm h-full min-h-[500px] lg:min-h-[600px] flex items-center justify-center overflow-hidden'>
-                <motion.img
-                  src='/about-ai.png'
-                  alt='QDOGE AI Portrait'
-                  className='w-full h-full object-contain'
-                  initial={{ opacity: 0, scale: 0.7, rotate: -5 }}
-                  whileInView={{ opacity: 1, scale: 1, rotate: 0 }}
-                  viewport={{ once: true }}
-                  whileHover={{ scale: 1.08, rotate: 2 }}
-                  animate={{
-                    y: [0, -8, 0],
-                  }}
-                  transition={{
-                    type: 'spring',
-                    stiffness: 250,
-                    damping: 20,
-                    duration: 0.5,
-                    delay: 0.2,
-                    y: {
-                      duration: 3,
-                      repeat: Infinity,
-                      ease: 'easeInOut',
-                    },
-                  }}
+              <video
+                  src='https://cb9j9fxetpmnxx5v.public.blob.vercel-storage.com/qdoge-promo.mp4'
+                  autoPlay
+                  loop
+                  muted
+                  playsInline
+                  className='w-full h-full object-cover'
                 />
-              </MagicCard>
             </motion.div>
           </div>
         </motion.div>

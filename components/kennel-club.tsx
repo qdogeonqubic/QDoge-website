@@ -11,21 +11,21 @@ const stepData = [
     title: 'Register',
     description:
       'Register your Qubic wallet and X account with Zealy to enter the Kennel.',
-    image: '/qdoge_sit.webp',
+    image: '/qdoge_stand_pose.webp',
   },
   {
     id: 2,
     title: 'Fetch',
     description:
       'Every week, Kennel trainees fetch a required amount of QDOGE from the market.',
-    image: '/qdoge_stand_pose.webp',
+    image: '/qdoge_run.webp',
   },
   {
     id: 3,
     title: 'Stay',
     description:
       'Hold your QDOGE. Positive balance, no panic dumping – obedience over noise.',
-    image: '/qdoge_run.webp',
+    image: '/qdoge_sit.webp',
   },
   {
     id: 4,

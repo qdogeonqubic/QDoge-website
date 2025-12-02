@@ -41,7 +41,7 @@ export function Header() {
   };
 
   const joinDiscord = () => {
-    window.open('https://discord.gg/qdoge', '_blank');
+    window.open('https://discord.gg/rZd5JW4Vjt', '_blank');
   };
 
   return (
