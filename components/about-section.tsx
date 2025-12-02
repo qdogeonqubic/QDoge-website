@@ -1,658 +1,266 @@
+/* eslint-disable @next/next/no-img-element */
 'use client';
 
-/* eslint-disable @next/next/no-img-element */
-import { useCallback, useEffect, useRef } from 'react';
-import { AboutBottomIcon } from './icons/about-bottom-icon';
-import { SkullIcon } from './icons/skull-icon';
-import { XIcon } from './icons/x-icon';
-import { TelegramIcon } from './icons/telegram-icon';
-import { DiscordIcon } from './icons/discord-icon';
-import { SkullRedIcon } from './icons/skull-red-icon';
+import { MagicCard } from '@/components/ui/magic-card';
+import { motion } from 'framer-motion';
+import React from 'react';
 
-export default function AboutSection() {
-  // Tabs logic for how-section
-  const tabsContainerRef = useRef<HTMLDivElement>(null);
-
-  // This function handles the tab switching
-  const handleTabClick = useCallback((idx: number) => {
-    const container = tabsContainerRef.current;
-    if (!container) return;
-
-    const nav = container.querySelector('.tabs__navigation');
-    const tabTitles = nav
-      ? Array.from(
-          nav.querySelectorAll<HTMLButtonElement>('[data-fls-tabs-title]')
-        )
-      : [];
-    const tabBodies = container.querySelectorAll<HTMLDivElement>(
-      '[data-fls-tabs-item]'
-    );
-    tabTitles.forEach((btn) => btn.classList.remove('--tab-active'));
-    tabBodies.forEach((body) => (body.style.display = 'none'));
-
-    if (tabTitles[idx]) tabTitles[idx].classList.add('--tab-active');
-    if (tabBodies[idx]) tabBodies[idx].style.display = '';
-
-    container.setAttribute('data-fls-tabs-index', idx.toString());
-  }, []);
-
-  useEffect(() => {
-    const container = tabsContainerRef.current;
-    if (!container) return;
-
-    const nav = container.querySelector('.tabs__navigation');
-    if (!nav) return;
-    const tabTitles = nav.querySelectorAll<HTMLButtonElement>(
-      '[data-fls-tabs-title]'
-    );
-    const tabBodies = container.querySelectorAll<HTMLDivElement>(
-      '[data-fls-tabs-item]'
-    );
-    tabTitles.forEach((btn, idx) => {
-      btn.addEventListener('click', (e) => {
-        e.preventDefault();
-        handleTabClick(idx);
-      });
-    });
-
-    tabTitles.forEach((b, idx) =>
-      b.classList.toggle('--tab-active', idx === 0)
-    );
-    tabBodies.forEach((b, idx) => (b.style.display = idx === 0 ? '' : 'none'));
-    container.setAttribute('data-fls-tabs-index', '0');
-
-    return () => {
-      tabTitles.forEach((btn) => {
-        btn.replaceWith(btn.cloneNode(true));
-      });
-    };
-  }, [handleTabClick]);
+const AboutSection: React.FC = () => {
+  const socialButtons = [
+    { icon: '𝕏', label: 'X', href: 'https://x.com/qdoge' },
+    { icon: '✈', label: 'Telegram', href: 'https://t.me/qdoge' },
+    { icon: '💀', label: 'Discord', href: 'https://discord.gg/qdoge' },
+  ];
 
   return (
-    <div className='page__about-how overflow-x-hidden'>
-      <div className='page__about-how-bg'>
-        <picture>
-          <source
-            media='(min-width: 1920.98px)'
-            srcSet='https://garthonqubic.com/assets/img/about/bg.webp'
-            type='image/webp'
-          />
-          <source
-            media='(min-width: 767.98px)'
-            srcSet='https://garthonqubic.com/assets/img/about/bg-1920.webp'
-            type='image/webp'
-          />
-          <img
-            data-fls-image-ignore=''
-            alt='BG'
-            src='https://garthonqubic.com/assets/img/about/bg-mob.webp'
-          />
-        </picture>
-      </div>
-      <div className='page__line line'>
-        {/* ...no UI change... */}
-        <div className='line__row'>
-          {/* ...no UI change... */}
-          <div className='line__item icon'>
-            <img
-              src='https://garthonqubic.com/assets/img/line/icon.svg'
-              alt='Icon'
-            />
-          </div>
-          <div className='line__item text'>
-            <h3>danger</h3>
-            <span>AUTHORIZED PERSONNEL ONLY</span>
-          </div>
-          <div className='line__item icon'>
-            <img
-              src='https://garthonqubic.com/assets/img/line/icon.svg'
-              alt='Icon'
-            />
-          </div>
-          <div className='line__item text'>
-            <h3>danger</h3>
-            <span>AUTHORIZED PERSONNEL ONLY</span>
-          </div>
-          <div className='line__item icon'>
-            <img
-              src='https://garthonqubic.com/assets/img/line/icon.svg'
-              alt='Icon'
-            />
-          </div>
-          <div className='line__item text'>
-            <h3>danger</h3>
-            <span>AUTHORIZED PERSONNEL ONLY</span>
-          </div>
-          <div className='line__item icon'>
-            <img
-              src='https://garthonqubic.com/assets/img/line/icon.svg'
-              alt='Icon'
-            />
-          </div>
-          <div className='line__item text'>
-            <h3>danger</h3>
-            <span>AUTHORIZED PERSONNEL ONLY</span>
-          </div>
-          <div className='line__item icon'>
-            <img
-              src='https://garthonqubic.com/assets/img/line/icon.svg'
-              alt='Icon'
-            />
-          </div>
-          <div className='line__item text'>
-            <h3>danger</h3>
-            <span>AUTHORIZED PERSONNEL ONLY</span>
-          </div>
-          <div className='line__item icon'>
-            <img
-              src='https://garthonqubic.com/assets/img/line/icon.svg'
-              alt='Icon'
-            />
-          </div>
-          <div className='line__item text'>
-            <h3>danger</h3>
-            <span>AUTHORIZED PERSONNEL ONLY</span>
-          </div>
-          <div className='line__item icon'>
-            <img
-              src='https://garthonqubic.com/assets/img/line/icon.svg'
-              alt='Icon'
-            />
-          </div>
-          <div className='line__item text'>
-            <h3>danger</h3>
-            <span>AUTHORIZED PERSONNEL ONLY</span>
-          </div>
-        </div>
-        <div className='line__row'>
-          <div className='line__item icon'>
-            <img
-              src='https://garthonqubic.com/assets/img/line/icon.svg'
-              alt='Icon'
-            />
-          </div>
-          <div className='line__item text'>
-            <h3>danger</h3>
-            <span>AUTHORIZED PERSONNEL ONLY</span>
-          </div>
-          <div className='line__item icon'>
-            <img
-              src='https://garthonqubic.com/assets/img/line/icon.svg'
-              alt='Icon'
-            />
-          </div>
-          <div className='line__item text'>
-            <h3>danger</h3>
-            <span>AUTHORIZED PERSONNEL ONLY</span>
-          </div>
-          <div className='line__item icon'>
-            <img
-              src='https://garthonqubic.com/assets/img/line/icon.svg'
-              alt='Icon'
-            />
-          </div>
-          <div className='line__item text'>
-            <h3>danger</h3>
-            <span>AUTHORIZED PERSONNEL ONLY</span>
-          </div>
-          <div className='line__item icon'>
-            <img
-              src='https://garthonqubic.com/assets/img/line/icon.svg'
-              alt='Icon'
-            />
-          </div>
-          <div className='line__item text'>
-            <h3>danger</h3>
-            <span>AUTHORIZED PERSONNEL ONLY</span>
-          </div>
-          <div className='line__item icon'>
-            <img
-              src='https://garthonqubic.com/assets/img/line/icon.svg'
-              alt='Icon'
-            />
-          </div>
-          <div className='line__item text'>
-            <h3>danger</h3>
-            <span>AUTHORIZED PERSONNEL ONLY</span>
-          </div>
-          <div className='line__item icon'>
-            <img
-              src='https://garthonqubic.com/assets/img/line/icon.svg'
-              alt='Icon'
-            />
-          </div>
-          <div className='line__item text'>
-            <h3>danger</h3>
-            <span>AUTHORIZED PERSONNEL ONLY</span>
-          </div>
-          <div className='line__item icon'>
-            <img
-              src='https://garthonqubic.com/assets/img/line/icon.svg'
-              alt='Icon'
-            />
-          </div>
-          <div className='line__item text'>
-            <h3>danger</h3>
-            <span>AUTHORIZED PERSONNEL ONLY</span>
-          </div>
-        </div>
-      </div>
-      <section id='about-section' className='page__about about'>
-        <div className='about__container'>
-          <div className='about__body'>
-            <div
-              className='about__body-main --watcher-view'
-              data-fls-watcher-threshold='0.5'
-              data-fls-watcher-once=''
-              data-fls-watcher=''
-            >
-              <div
-                className='about__body-main-content --watcher-view'
-                data-fls-watcher-threshold='0.55'
-                data-fls-watcher-once=''
-                data-fls-watcher=''
-              >
-                <div className='about__body-main-content-top'>
-                  <picture>
-                    <source
-                      media='(min-width: 767.98px)'
-                      srcSet='https://garthonqubic.com/assets/img/about/content-top.svg'
-                      type='image/svg+xml'
-                    />
-                    <img
-                      alt='TOP'
-                      src='https://garthonqubic.com/assets/img/about/content-top-mob.svg'
-                    />
-                  </picture>
-                </div>
-                <div className='about__body-main-content-body'>
-                  <div className='about__body-main-content-body-bg'>
-                    <img
-                      src='https://garthonqubic.com/assets/img/about/content-bg.svg'
-                      alt='BG'
-                    />
-                  </div>
-                  <div className='about__body-main-content-body-top'>
-                    <picture>
-                      <source
-                        media='(min-width: 767.98px)'
-                        srcSet='https://garthonqubic.com/assets/img/about/content-body-top /.svg'
-                        type='image/svg+xml'
-                      />
-                      <img
-                        alt='TOP'
-                        src='https://garthonqubic.com/assets/img/about/content-body-top-mob.svg'
-                      />
-                    </picture>
-                  </div>
-                  <div className='about__body-main-content-body-content'>
-                    <h2 className='text-[56px]! about__body-main-content-body-content-title'>
-                      ABOUT QDOGE
-                    </h2>
-                    <div className='about__body-main-content-body-content-text'>
-                      QDOGE is a robotic Shiba Inu AI built in the AIGARTH Yard
-                      to guide the Qubic community into the new era of Dogecoin
-                      mining. Designed by Anna, QDOGE prepares miners to take on
-                      Dogecoin’s vast ASIC hashpower with strategy and unity.
-                      <br />
-                      <br />
-                      <b>Join QDOGE’s Kennel Club</b> to earn weekly tokens,
-                      hold for rewards, and help lead the next legendary mining
-                      campaign.
-                      <br />
-                      <br />
-                      “Monero was just the beginning. Dogecoin is next.”
-                    </div>
-                    <div className='about__body-main-content-body-content-actions'>
-                      <a
-                        href='#'
-                        data-fls-scrollto='.how'
-                        className='about__body-main-content-body-content-actions-button button blue'
-                      >
-                        <span>Join the Kennel</span>
-                        <span>
-                          <SkullIcon />
-                        </span>
-                      </a>
-                      <div className='about__body-main-content-body-content-actions-social social'>
-                        <a
-                          href='https://x.com/garthonqubic'
-                          target='_blank'
-                          className='about__body-main-content-body-content-actions-social-item social-item social-item--blue-border'
-                        >
-                          <XIcon />
-                        </a>
-                        <a
-                          href='https://t.me/garthonqubic'
-                          target='_blank'
-                          className='about__body-main-content-body-content-actions-social-item social-item social-item--blue-border'
-                        >
-                          <TelegramIcon />
-                        </a>
-                        <a
-                          href='https://discord.gg/Pryekk4akE'
-                          target='_blank'
-                          className='about__body-main-content-body-content-actions-social-item social-item social-item--blue-border'
-                        >
-                          <DiscordIcon />
-                        </a>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-              </div>
-              <div
-                className='about__body-main-image --watcher-view'
-                data-fls-watcher-threshold='0.55'
-                data-fls-watcher-once=''
-                data-fls-watcher=''
-              >
-                <div className='about__body-main-image-top'>
-                  <img
-                    src='https://garthonqubic.com/assets/img/about/image-top.svg'
-                    alt='Top'
-                  />
-                </div>
-                <div className='about__body-main-image-main'>
-                  <img alt='QDOGE' src='./about-ai.png' />
-                  <img
-                    alt='Cyber Filter'
-                    src='https://garthonqubic.com/assets/img/about/02.webp'
-                  />
-                  <img
-                    alt='Cyber Filter'
-                    src='https://garthonqubic.com/assets/img/about/03.webp'
-                  />
-                  <img
-                    alt='Cyber Filter'
-                    src='https://garthonqubic.com/assets/img/about/04.webp'
-                  />
-                </div>
-              </div>
-            </div>
-            <div
-              className='about__body-bottom --watcher-view'
-              data-fls-watcher-threshold='0.65'
-              data-fls-watcher-once=''
-              data-fls-watcher=''
-            >
-              <div className='about__body-bottom-banner'>
-                <div className='about__body-bottom-banner-icon'>
-                  <img
-                    src='https://garthonqubic.com/assets/img/about/banner-icon.svg'
-                    alt='Icon'
-                  />
-                </div>
-                <div className='about__body-bottom-banner-content'>
-                  <h3 className='about__body-bottom-banner-title'>
-                    TRAINING COMMENCED
-                  </h3>
-                  <div className='about__body-bottom-banner-text'>
-                    QDOGE&apos;s Kennel Club is now open. Are you ready?
-                  </div>
-                </div>
-                <div className='about__body-bottom-banner-icon'>
-                  <img
-                    src='https://garthonqubic.com/assets/img/about/banner-icon.svg'
-                    alt='Icon'
-                  />
-                </div>
-              </div>
-              <div
-                className='about__body-bottom-image --watcher-view'
-                data-fls-watcher-threshold='0.75'
-                data-fls-watcher-once=''
-                data-fls-watcher=''
-              >
-                <div className='about__body-bottom-image-bg'>
-                  <img
-                    src='https://garthonqubic.com/assets/img/about/bottom-image-bg.svg'
-                    alt='BG'
-                  />
-                </div>
-                <div className='about__body-bottom-image-icon'>
-                  <AboutBottomIcon />
-                </div>
-              </div>
-              <form
-                id='confessionForm'
-                action='https://www.garthonqubic.com/sendmail/index.php'
-                method='POST'
-                className='about__body-bottom-form form-about --watcher-view'
-                data-fls-watcher-threshold='0.65'
-                data-fls-watcher-once=''
-                data-fls-watcher=''
-              >
-                <div className='form-about__bg'>
-                  <img
-                    src='https://garthonqubic.com/assets/img/about/form-bg.svg'
-                    alt='BG'
-                  />
-                </div>
-                <h3 className='form-about__title'>
-                  WHY SHOULD QDOGE CHOOSE YOU?
-                </h3>
-                <input
-                  type='text'
-                  id='userName'
-                  name='userName'
-                  className='form-about__input'
-                  placeholder='Shiba name...'
-                />
-                <textarea
-                  className='form-about__textarea'
-                  rows={3}
-                  id='userConfession'
-                  name='userConfession'
-                  placeholder='What will make you a good DOGE-miner?'
-                ></textarea>
-                <button type='submit' className='form-about__submit button red'>
-                  <span>Apply for Training</span>
-                  <span>
-                    <SkullRedIcon />
-                  </span>
-                </button>
-              </form>
-            </div>
-          </div>
-        </div>
-      </section>
-      <section id='how-section' className='page__how how'>
-        <div
-          className='how__container --watcher-view'
-          data-fls-watcher-threshold='0.5'
-          data-fls-watcher-once=''
-          data-fls-watcher=''
+    <section id='about' className='relative py-20 lg:py-32 overflow-hidden'>
+      <div className='relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8'>
+        {/* Cyberpunk Terminal Layout */}
+        <motion.div
+          initial='hidden'
+          whileInView='visible'
+          viewport={{ once: true, amount: 0.1 }}
+          transition={{ duration: 0.3 }}
+          variants={{
+            visible: { opacity: 1 },
+            hidden: { opacity: 0 },
+          }}
         >
-          <div className='how__body'>
-            <div className='how__title-mob-box'></div>
-            <div
-              className='how__images-box --watcher-view'
-              data-fls-watcher-threshold='0.5'
-              data-fls-watcher-once=''
-              data-fls-watcher=''
+          <div className='grid grid-cols-1 lg:grid-cols-2 gap-8 lg:gap-12'>
+            {/* Left Panel - Terminal Interface */}
+            <motion.div
+              className='relative'
+              initial='hidden'
+              whileInView='visible'
+              viewport={{ once: true, amount: 0.2 }}
+              variants={{
+                hidden: { opacity: 0, x: -60, filter: 'blur(10px)' },
+                visible: {
+                  opacity: 1,
+                  x: 0,
+                  filter: 'blur(0px)',
+                  transition: {
+                    type: 'spring',
+                    stiffness: 300,
+                    damping: 25,
+                    duration: 0.4,
+                  },
+                },
+              }}
             >
-              <div className='how__images-top'>
-                <img
-                  src='https://garthonqubic.com/assets/img/how/top.svg'
-                  alt='Top'
-                />
-              </div>
-              <div className='how__images-main'>
-                <div className='how__images-list v-0'>
-                  <img
-                    alt='Filter'
-                    src='https://garthonqubic.com/assets/img/how/filter1.webp'
-                  />
-                  <img
-                    alt='Filter'
-                    src='https://garthonqubic.com/assets/img/how/filter2.webp'
-                  />
-                  <img
-                    alt='Filter'
-                    src='https://garthonqubic.com/assets/img/how/filter3.webp'
-                  />
-                  <img
-                    alt='Kennel step'
-                    src='https://garthonqubic.com/assets/img/how/01.webp'
-                  />
-                  <img
-                    alt='Kennel step'
-                    src='https://garthonqubic.com/assets/img/how/02.webp'
-                  />
-                  <img
-                    alt='Kennel step'
-                    src='https://garthonqubic.com/assets/img/how/03.webp'
-                  />
-                  <img
-                    alt='Kennel step'
-                    src='https://garthonqubic.com/assets/img/how/04.webp'
-                  />
-                </div>
-              </div>
-            </div>
-            <div className='how__content'>
-              <h2
-                className='how__title --watcher-view'
-                data-fls-dynamic='.how__title-mob-box, 767.98'
-                data-fls-watcher-threshold='0.75'
-                data-fls-watcher-once=''
-                data-fls-watcher=''
-              >
-                <span>
-                  The Future of
-                  <br data-pc-only='' />
-                  Dogecoin Mining
-                </span>
-                <img
-                  src='https://garthonqubic.com/assets/img/how/title-bg.svg'
-                  alt='BG'
-                />
-              </h2>
-              <div
-                data-fls-tabs=''
-                className='how__tabs tabs --tab-init'
-                data-fls-watcher-threshold='0.6'
-                data-fls-watcher-once=''
-                data-fls-watcher=''
-                data-fls-tabs-index='0'
-                ref={tabsContainerRef}
-              >
-                <nav
-                  data-fls-tabs-titles=''
-                  className='tabs__navigation *:opacity-100! *:visible! lg:*:opacity-0 lg:*:invisible'
+              <MagicCard className='border-2 border-cyan-400/60 bg-black/80 backdrop-blur-sm relative h-full'>
+                {/* Terminal Header */}
+                <motion.div
+                  className='border-b border-cyan-400/40 p-3 bg-cyan-400/10'
+                  initial={{ opacity: 0, y: -15, scale: 0.95 }}
+                  whileInView={{ opacity: 1, y: 0, scale: 1 }}
+                  viewport={{ once: true }}
+                  transition={{
+                    type: 'spring',
+                    stiffness: 400,
+                    damping: 20,
+                    duration: 0.3,
+                    delay: 0.05,
+                  }}
                 >
-                  <button
-                    type='button'
-                    className='tabs__title --tab-active'
-                    data-fls-tabs-title=''
-                  >
-                    <img
-                      src='https://garthonqubic.com/assets/img/how/tab-title-dec.svg'
-                      alt='Decor'
-                    />
-                    <span>Character Concept</span>
-                    <img
-                      src='https://garthonqubic.com/assets/img/how/tab-title-dec.svg'
-                      alt='Decor'
-                    />
-                  </button>
-                  <button
-                    type='button'
-                    className='tabs__title'
-                    data-fls-tabs-title=''
-                  >
-                    <img
-                      src='https://garthonqubic.com/assets/img/how/tab-title-dec.svg'
-                      alt='Decor'
-                    />
-                    <span>Backstory & Lore</span>
-                    <img
-                      src='https://garthonqubic.com/assets/img/how/tab-title-dec.svg'
-                      alt='Decor'
-                    />
-                  </button>
-                  <button
-                    type='button'
-                    className='tabs__title'
-                    data-fls-tabs-title=''
-                  >
-                    <img
-                      src='https://garthonqubic.com/assets/img/how/tab-title-dec.svg'
-                      alt='Decor'
-                    />
-                    <span>Mission & Role</span>
-                    <img
-                      src='https://garthonqubic.com/assets/img/how/tab-title-dec.svg'
-                      alt='Decor'
-                    />
-                  </button>
-                  <button
-                    type='button'
-                    className='tabs__title'
-                    data-fls-tabs-title=''
-                  >
-                    <img
-                      src='https://garthonqubic.com/assets/img/how/tab-title-dec.svg'
-                      alt='Decor'
-                    />
-                    <span>The Prophecy</span>
-                    <img
-                      src='https://garthonqubic.com/assets/img/how/tab-title-dec.svg'
-                      alt='Decor'
-                    />
-                  </button>
-                </nav>
-                <div
-                  data-fls-tabs-body=''
-                  className='tabs__content opacity-100! visible! lg:opacity-0 lg:invisible'
-                >
-                  <div className='tabs__body' data-fls-tabs-item=''>
-                    <h3 className='tabs__body-title'>Character Concept</h3>
-                    <div className='tabs__body-text'>
-                      <p>
-                        A futuristic AI robotic Shiba Inu, QDOGE guides Qubic
-                        miners in the challenging Dogecoin mining frontier with
-                        strategic support and loyalty.
-                      </p>
+                  <div className='flex items-center justify-between'>
+                    <div className='flex items-center space-x-2'>
+                      {['red', 'yellow', 'green'].map((color, index) => (
+                        <motion.div
+                          key={color}
+                          className={`w-3 h-3 bg-${color}-400 rounded-full`}
+                          initial={{ scale: 0, rotate: -180 }}
+                          whileInView={{ scale: 1, rotate: 0 }}
+                          viewport={{ once: true }}
+                          transition={{
+                            type: 'spring',
+                            stiffness: 500,
+                            damping: 15,
+                            delay: 0.1 + index * 0.05,
+                          }}
+                        />
+                      ))}
                     </div>
+                    <motion.div
+                      className='text-cyan-400 font-mono text-xs tracking-wider'
+                      initial={{ opacity: 0 }}
+                      whileInView={{ opacity: 1 }}
+                      viewport={{ once: true }}
+                      transition={{ duration: 0.2, delay: 0.2 }}
+                    >
+                      ▲ QUBIC DIVISION UNIT ▲
+                    </motion.div>
                   </div>
-                  <div className='tabs__body' data-fls-tabs-item=''>
-                    <h3 className='tabs__body-title'>Backstory & Lore</h3>
-                    <div className='tabs__body-text'>
-                      <p>
-                        QDOGE was born from Anna’s blueprint to conquer Dogecoin
-                        mining, forging plans through data analysis and
-                        meme-inspired training in AIGARTH’s Yard.
-                      </p>
+                </motion.div>
+
+                {/* Terminal Content */}
+                <div className='p-6 lg:p-8'>
+                  <motion.h2
+                    className='text-4xl lg:text-5xl font-black text-cyan-400 mb-6 tracking-wider font-mono'
+                    initial={{ opacity: 0, y: 15, scale: 0.9 }}
+                    whileInView={{ opacity: 1, y: 0, scale: 1 }}
+                    viewport={{ once: true }}
+                    transition={{
+                      type: 'spring',
+                      stiffness: 300,
+                      damping: 20,
+                      duration: 0.35,
+                      delay: 0.1,
+                    }}
+                  >
+                    ABOUT QDOGE
+                  </motion.h2>
+
+                  <div className='space-y-4 text-cyan-300 font-mono text-sm lg:text-base leading-relaxed'>
+                    {[
+                      "a futuristic ai robotic shiba inu, sent from the future by anna's consciousness. born from qubic's overclocked mining rigs in aigarth's yard. mission: prepare the qubic community for the ultimate dogecoin mining conquest.",
+                      "after monero, qubic's eyes turned toward dogecoin. doge is a giant defended by massive hashpower and entrenched asic miners. success requires more than brute force: preparation, unity, and strategy.",
+                      'join the kennel club. train for 56 weeks. fetch, stay, bark. earn treats and rewards. prepare for the 2027 doge mining revolution.',
+                    ].map((text, index) => (
+                      <motion.p
+                        key={index}
+                        initial={{ opacity: 0, x: -40, filter: 'blur(5px)' }}
+                        whileInView={{ opacity: 1, x: 0, filter: 'blur(0px)' }}
+                        viewport={{ once: true }}
+                        transition={{
+                          type: 'spring',
+                          stiffness: 250,
+                          damping: 22,
+                          duration: 0.35,
+                          delay: 0.15 + index * 0.08,
+                        }}
+                      >
+                        {text}
+                      </motion.p>
+                    ))}
+                  </div>
+
+                  {/* Action Buttons */}
+                  <motion.div
+                    className='mt-8 flex flex-wrap gap-4'
+                    initial={{ opacity: 0, y: 15 }}
+                    whileInView={{ opacity: 1, y: 0 }}
+                    viewport={{ once: true }}
+                    transition={{
+                      type: 'spring',
+                      stiffness: 300,
+                      damping: 20,
+                      duration: 0.4,
+                      delay: 0.35,
+                    }}
+                  >
+                    <motion.button
+                      className='bg-cyan-400/20 border border-cyan-400/50 text-cyan-400 px-6 py-2 rounded font-mono text-sm hover:bg-cyan-400/30 transition-all duration-300 flex items-center space-x-2'
+                      whileHover={{ scale: 1.08, y: -2 }}
+                      whileTap={{ scale: 0.95 }}
+                      transition={{
+                        type: 'spring',
+                        stiffness: 400,
+                        damping: 17,
+                      }}
+                    >
+                      <span>buy now</span>
+                      <motion.span
+                        className='text-white'
+                        animate={{ rotate: [0, 10, -10, 0] }}
+                        transition={{
+                          duration: 2,
+                          repeat: Infinity,
+                          ease: 'easeInOut',
+                        }}
+                      >
+                        💀
+                      </motion.span>
+                    </motion.button>
+
+                    <div className='flex space-x-2'>
+                      {socialButtons.map((social, index) => (
+                        <motion.a
+                          key={social.label}
+                          href={social.href}
+                          target='_blank'
+                          rel='noopener noreferrer'
+                          className='w-10 h-10 border border-cyan-400/50 bg-cyan-400/10 text-cyan-400 rounded flex items-center justify-center hover:bg-cyan-400/20 transition-all duration-300 text-lg'
+                          initial={{ opacity: 0, scale: 0, rotate: -180 }}
+                          whileInView={{ opacity: 1, scale: 1, rotate: 0 }}
+                          viewport={{ once: true }}
+                          transition={{
+                            type: 'spring',
+                            stiffness: 400,
+                            damping: 18,
+                            delay: 0.4 + index * 0.05,
+                          }}
+                          whileHover={{ scale: 1.15, rotate: 10, y: -3 }}
+                          whileTap={{ scale: 0.9 }}
+                        >
+                          {social.icon}
+                        </motion.a>
+                      ))}
                     </div>
-                  </div>
-                  <div className='tabs__body' data-fls-tabs-item=''>
-                    <h3 className='tabs__body-title'>Mission & Role</h3>
-                    <div className='tabs__body-text'>
-                      <p>
-                        QDOGE scouts the Dogecoin network, strategizes mining
-                        efforts, and leads Qubic’s community as a sidekick in
-                        the upcoming Dogecoin mining push.
-                      </p>
-                    </div>
-                  </div>
-                  <div className='tabs__body' data-fls-tabs-item=''>
-                    <h3 className='tabs__body-title'>The Prophecy</h3>
-                    <div className='tabs__body-text'>
-                      <p>
-                        Following QXMR’s Monero success, QDOGE’s prophecy calls
-                        for unity and precision to overcome Dogecoin’s ASIC
-                        dominance and achieve legendary mining.
-                      </p>
-                    </div>
-                  </div>
+                  </motion.div>
                 </div>
-              </div>
-            </div>
+              </MagicCard>
+            </motion.div>
+
+            {/* Right Panel - Holographic Portrait */}
+            <motion.div
+              initial='hidden'
+              whileInView='visible'
+              viewport={{ once: true, amount: 0.2 }}
+              variants={{
+                hidden: {
+                  opacity: 0,
+                  x: 60,
+                  scale: 0.85,
+                  filter: 'blur(10px)',
+                },
+                visible: {
+                  opacity: 1,
+                  x: 0,
+                  scale: 1,
+                  filter: 'blur(0px)',
+                  transition: {
+                    type: 'spring',
+                    stiffness: 300,
+                    damping: 25,
+                    duration: 0.4,
+                    delay: 0.1,
+                  },
+                },
+              }}
+            >
+              <MagicCard className='border-2 border-cyan-400/60 bg-black/80 backdrop-blur-sm h-full min-h-[500px] lg:min-h-[600px] flex items-center justify-center overflow-hidden'>
+                <motion.img
+                  src='/about-ai.png'
+                  alt='QDOGE AI Portrait'
+                  className='w-full h-full object-contain'
+                  initial={{ opacity: 0, scale: 0.7, rotate: -5 }}
+                  whileInView={{ opacity: 1, scale: 1, rotate: 0 }}
+                  viewport={{ once: true }}
+                  whileHover={{ scale: 1.08, rotate: 2 }}
+                  animate={{
+                    y: [0, -8, 0],
+                  }}
+                  transition={{
+                    type: 'spring',
+                    stiffness: 250,
+                    damping: 20,
+                    duration: 0.5,
+                    delay: 0.2,
+                    y: {
+                      duration: 3,
+                      repeat: Infinity,
+                      ease: 'easeInOut',
+                    },
+                  }}
+                />
+              </MagicCard>
+            </motion.div>
           </div>
-        </div>
-      </section>
-    </div>
+        </motion.div>
+      </div>
+    </section>
   );
-}
+};
+
+export default AboutSection;

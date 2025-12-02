@@ -1,340 +1,199 @@
+/* eslint-disable @next/next/no-img-element */
 'use client';
 
+import { Dock, DockIcon } from '@/components/ui/dock';
+import { ShimmerButton } from '@/components/ui/shimmer-button';
+import { TextAnimate } from '@/components/ui/text-animate';
+import { cn } from '@/lib/utils';
+import { DiscordLogoIcon } from '@radix-ui/react-icons';
+import { Menu, MessageCircle, X, Zap } from 'lucide-react';
 import Link from 'next/link';
+import { useEffect, useState } from 'react';
 
-// Icons and buy button SVGs for header actions/mobile menu
-const BuyIcon = () => (
-  <svg
-    xmlns='http://www.w3.org/2000/svg'
-    width='22'
-    height='23'
-    viewBox='0 0 22 23'
-    fill='none'
-  >
-    <path
-      d='M11 4C7.41594 4 4.5 6.91594 4.5 10.5V15.3384L7.0625 16.3638L7.59 19H9V17H10V19H10.5V17H11.5V19H12V17H13V19H14.41L14.9375 16.3638L17.5 15.3384V10.5C17.5 6.91594 14.5841 4 11 4ZM8.25 14C7.90388 14 7.56554 13.8974 7.27775 13.7051C6.98997 13.5128 6.76566 13.2395 6.63321 12.9197C6.50076 12.5999 6.4661 12.2481 6.53363 11.9086C6.60115 11.5691 6.76782 11.2573 7.01256 11.0126C7.25731 10.7678 7.56912 10.6011 7.90859 10.5336C8.24806 10.4661 8.59993 10.5008 8.9197 10.6332C9.23947 10.7657 9.51278 10.99 9.70507 11.2778C9.89736 11.5655 10 11.9039 10 12.25C9.9995 12.714 9.81497 13.1588 9.48689 13.4869C9.15881 13.815 8.71398 13.9995 8.25 14ZM9.85969 16L10.625 13.5H11.375L12.1403 16H9.85969ZM13.75 14C13.4039 14 13.0655 13.8974 12.7778 13.7051C12.49 13.5128 12.2657 13.2395 12.1332 12.9197C12.0008 12.5999 11.9661 12.2481 12.0336 11.9086C12.1011 11.5691 12.2678 11.2573 12.5126 11.0126C12.7573 10.7678 13.0691 10.6011 13.4086 10.5336C13.7481 10.4661 14.0999 10.5008 14.4197 10.6332C14.7395 10.7657 15.0128 10.99 15.2051 11.2778C15.3974 11.5655 15.5 11.9039 15.5 12.25C15.4995 12.714 15.315 13.1588 14.9869 13.4869C14.6588 13.815 14.214 13.9995 13.75 14Z'
-      fill='white'
-    ></path>
-  </svg>
-);
+// Navigation items
+const navigationItems = [
+  { label: 'About', scrollTo: '#about' },
+  { label: 'Kennel Club', scrollTo: '#kennel-club' },
+  { label: 'Tokenomics', scrollTo: '#tokenomics' },
+  { label: 'Roadmap', scrollTo: '#roadmap' },
+  { label: 'Faq', scrollTo: '#faq' },
+];
 
 export function Header() {
+  const [isScrolled, setIsScrolled] = useState(false);
+  const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
+
+  useEffect(() => {
+    const handleScroll = () => {
+      setIsScrolled(window.scrollY > 50);
+    };
+
+    window.addEventListener('scroll', handleScroll);
+    return () => window.removeEventListener('scroll', handleScroll);
+  }, []);
+
+  const scrollToSection = (selector: string) => {
+    const element = document.querySelector(selector);
+    if (element) {
+      element.scrollIntoView({ behavior: 'smooth' });
+      setIsMobileMenuOpen(false);
+    }
+  };
+
+  const joinDiscord = () => {
+    window.open('https://discord.gg/qdoge', '_blank');
+  };
+
   return (
-    <header data-fls-header='' data-fls-lp='' className='header'>
-      <div className='header__container'>
-        <div className='header__menu menu'>
-          <button
-            type='button'
-            data-fls-menu=''
-            className='menu__icon icon-menu'
-            aria-label='Toggle navigation'
-          >
-            <span>
-              <i>menu</i>
-              <i>close</i>
-            </span>
-            <span>
-              <svg
-                xmlns='http://www.w3.org/2000/svg'
-                width='12'
-                height='12'
-                viewBox='0 0 12 12'
-                fill='none'
-              >
-                <path
-                  d='M8.01013 0.399602L8.00944 3.99521H11.614L11.6133 7.99548H8.00875L8.00944 11.5994H4.00987L4.00918 7.99548L0.413567 7.99478V3.99521H4.00987V0.398911L8.01013 0.399602Z'
-                  fill='white'
-                ></path>
-              </svg>
-            </span>
-          </button>
-          <nav className='menu__body'>
-            <ul className='menu__list'>
-              <li className='menu__item'>
-                <a
-                  href='#'
-                  data-fls-scrollto='.about'
-                  data-fls-scrollto-top-mob='10'
-                  data-fls-scrollto-top-pc='40'
-                  className='menu__link'
-                  data-fls-scrollto-top='40'
-                >
-                  about
-                </a>
-              </li>
-              <li className='menu__item'>
-                <a href='#' data-fls-scrollto='.how' className='menu__link'>
-                  how to survive
-                </a>
-              </li>
-              <li className='menu__item'>
-                <a
-                  href='#'
-                  data-fls-scrollto='.airdrop'
-                  data-fls-scrollto-top-mob='40'
-                  data-fls-scrollto-top-pc='80,-160'
-                  className='menu__link'
-                  data-fls-scrollto-top='-5.63'
-                  style={{ textTransform: 'uppercase' }}
-                >
-                  AIRDROP MECHANISMS
-                </a>
-              </li>
-              <li className='menu__item'>
-                <a
-                  href='#'
-                  data-fls-scrollto='.tokenomics__bottom'
-                  data-fls-scrollto-top-mob='60'
-                  data-fls-scrollto-top-pc='70'
-                  className='menu__link'
-                  data-fls-scrollto-top='70'
-                >
-                  tokenomics
-                </a>
-              </li>
-              <li className='menu__item'>
-                <a
-                  href='#'
-                  data-fls-scrollto='.tokenomics'
-                  data-fls-scrollto-top-mob='20'
-                  data-fls-scrollto-top-pc='20'
-                  className='menu__link'
-                  data-fls-scrollto-top='20'
-                >
-                  mercy list
-                </a>
-              </li>
-              <li className='menu__item'>
-                <a href='manifesto.html' className='menu__link'>
-                  manifesto
-                </a>
-              </li>
-              <li className='menu__item'>
-                <a href='roadmap.html' className='menu__link'>
-                  roadmap
-                </a>
-              </li>
-              <li className='menu__item mob-only'>
-                <a
-                  href='#'
-                  target='_blank'
-                  rel='noopener noreferrer'
-                  className='menu__link'
-                >
-                  <span>buy now</span>
-                  <svg
-                    xmlns='http://www.w3.org/2000/svg'
-                    width='33'
-                    height='33'
-                    viewBox='0 0 33 33'
-                    fill='none'
-                  >
-                    <path
-                      d='M16.4958 1.03183C9.10366 1.03183 3.08954 7.04595 3.08954 14.4381V24.4174L8.3747 26.5321L9.46266 31.9693H12.3708V27.8443H14.4333V31.9693H15.4645V27.8443H17.527V31.9693H18.5583V27.8443H20.6208V31.9693H23.5289L24.6169 26.5321L29.902 24.4174V14.4381C29.902 7.04595 23.8879 1.03183 16.4958 1.03183ZM10.8239 21.6568C10.11 21.6568 9.41221 21.4451 8.81865 21.0485C8.22509 20.6519 7.76247 20.0882 7.48929 19.4287C7.2161 18.7692 7.14462 18.0435 7.28389 17.3433C7.42316 16.6432 7.76692 16 8.2717 15.4952C8.77648 14.9905 9.41961 14.6467 10.1198 14.5074C10.8199 14.3682 11.5456 14.4396 12.2052 14.7128C12.8647 14.986 13.4284 15.4486 13.825 16.0422C14.2216 16.6358 14.4333 17.3336 14.4333 18.0475C14.4323 19.0044 14.0517 19.9219 13.375 20.5985C12.6983 21.2752 11.7809 21.6558 10.8239 21.6568ZM14.1439 25.7818L15.7224 20.6256H17.2692L18.8477 25.7818H14.1439ZM22.1677 21.6568C21.4538 21.6568 20.756 21.4451 20.1624 21.0485C19.5688 20.6519 19.1062 20.0882 18.833 19.4287C18.5599 18.7692 18.4884 18.0435 18.6276 17.3433C18.7669 16.6432 19.1107 16 19.6155 15.4952C20.1202 14.9905 20.7634 14.6467 21.4635 14.5074C22.1637 14.3682 22.8894 14.4396 23.5489 14.7128C24.2084 14.986 24.7721 15.4486 25.1688 16.0422C25.5654 16.6358 25.777 17.3336 25.777 18.0475C25.776 19.0044 25.3954 19.9219 24.7188 20.5985C24.0421 21.2752 23.1246 21.6558 22.1677 21.6568Z'
-                      fill='black'
-                    ></path>
-                  </svg>
-                </a>
-              </li>
-            </ul>
-            <div className='menu__bottom-mob'>
-              <div className='menu__bottom-mob-social social'>
-                <a
-                  href='#'
-                  target='_blank'
-                  rel='noopener noreferrer'
-                  className='menu__bottom-mob-social-item social-item social-item--blue-border'
-                  aria-label='Telegram'
-                >
-                  {/* Telegram SVG */}
-                  <svg
-                    xmlns='http://www.w3.org/2000/svg'
-                    width='23'
-                    height='23'
-                    viewBox='0 0 23 23'
-                    fill='none'
-                  >
-                    <path
-                      fillRule='evenodd'
-                      clipRule='evenodd'
-                      d='M18.7639 4.62361C18.9884 4.52913 19.2341 4.49655 19.4754 4.52924C19.7168 4.56194 19.9449 4.65873 20.1362 4.80953C20.3274 4.96033 20.4747 5.15964 20.5628 5.3867C20.6509 5.61376 20.6765 5.86027 20.637 6.10059L18.5768 18.5968C18.377 19.8022 17.0544 20.4934 15.949 19.893C15.0243 19.3907 13.6508 18.6168 12.4155 17.8092C11.7978 17.405 9.90568 16.1106 10.1382 15.1896C10.3381 14.402 13.5173 11.4426 15.334 9.68313C16.0471 8.99187 15.7219 8.59311 14.8798 9.22895C12.7888 10.8077 9.43152 13.2084 8.32152 13.8843C7.34231 14.4801 6.83182 14.5819 6.22141 14.4801C5.10777 14.2948 4.07497 14.0078 3.23202 13.6581C2.09295 13.1857 2.14836 11.6197 3.23111 11.1637L18.7639 4.62361Z'
-                      fill='#74E3FF'
-                    ></path>
-                  </svg>
-                </a>
-                <a
-                  href='#'
-                  target='_blank'
-                  rel='noopener noreferrer'
-                  className='menu__bottom-mob-social-item social-item social-item--blue-border'
-                  aria-label='X'
-                >
-                  {/* X (Twitter) SVG */}
-                  <svg
-                    xmlns='http://www.w3.org/2000/svg'
-                    width='22'
-                    height='23'
-                    viewBox='0 0 22 23'
-                    fill='none'
-                  >
-                    <path
-                      d='M15.4889 4.58514H17.8292L12.7169 10.4429L18.7317 18.4154H14.0228L10.332 13.5811L6.11359 18.4154H3.77113L9.23868 12.1477L3.47137 4.58623H8.30017L11.6313 9.0041L15.4889 4.58514ZM14.6659 17.0114H15.963L7.59166 5.91606H6.20079L14.6659 17.0114Z'
-                      fill='#74E3FF'
-                    ></path>
-                  </svg>
-                </a>
-                <a
-                  href='#'
-                  target='_blank'
-                  rel='noopener noreferrer'
-                  className='menu__bottom-mob-social-item social-item social-item--blue-border'
-                  aria-label='Github'
-                >
-                  {/* Github SVG */}
-                  <svg
-                    xmlns='http://www.w3.org/2000/svg'
-                    width='23'
-                    height='23'
-                    viewBox='0 0 23 23'
-                    fill='none'
-                  >
-                    <path
-                      d='M8.17789 3.11444C7.44899 3.24347 6.2635 3.55573 5.49059 3.82153C4.92398 4.01508 4.08781 4.35315 4.02179 4.41508C3.94203 4.48734 3.41117 5.2925 3.13611 5.75702C1.76634 8.06153 1.02643 10.2551 0.732124 12.8925C0.66061 13.5402 0.674363 15.8009 0.754129 16.2809C0.773383 16.3944 0.875154 16.4744 1.58205 16.9131C2.98483 17.7906 4.2886 18.3996 5.82341 18.8951L6.33226 19.0602L6.39553 18.988C6.59907 18.7557 7.15468 17.917 7.38848 17.486C7.45449 17.3648 7.52051 17.2538 7.53426 17.2357C7.56452 17.1996 7.53701 17.1841 7.26746 17.086C6.9759 16.9777 6.31301 16.6757 5.97744 16.5002L5.67763 16.3428L5.7574 16.2886C5.80141 16.2577 5.90318 16.1854 5.98294 16.1235L6.12597 16.0151L6.258 16.077C6.5028 16.1931 7.34997 16.4977 7.79006 16.6293C9.1956 17.0473 10.5131 17.2254 11.9654 17.1944C13.3242 17.166 14.4327 16.9854 15.7474 16.5802C16.1408 16.459 16.8972 16.1777 17.1337 16.0641L17.2382 16.0151L17.4445 16.1699C17.5601 16.2525 17.6563 16.3299 17.6591 16.3377C17.6756 16.3738 16.7871 16.8099 16.3168 16.9957C16.1655 17.0551 15.9895 17.1273 15.9235 17.1531L15.8052 17.1996L15.962 17.4783C16.2398 17.9686 16.6276 18.5596 16.9137 18.9235L17.0182 19.0577L17.5876 18.877C18.3715 18.6241 18.8886 18.4202 19.755 18.0151C20.7204 17.566 21.6034 17.0654 22.3598 16.539C22.5963 16.3738 22.5991 16.3738 22.6156 16.2396C22.6871 15.6357 22.7091 14.2035 22.6568 13.4473C22.4395 10.2912 21.4411 7.47831 19.5597 4.72218L19.3287 4.38669L18.9793 4.2396C17.9699 3.82411 16.8669 3.47831 15.7529 3.23056C15.4036 3.15573 14.8893 3.06024 14.8177 3.06024C14.7545 3.06024 14.6335 3.25895 14.3832 3.76734C14.2869 3.96605 14.1961 4.14153 14.1824 4.15444C14.1714 4.16734 14.0091 4.1596 13.7945 4.13379C13.0354 4.04605 12.8841 4.03831 11.9984 4.02282C10.9147 4.00476 10.4719 4.02798 9.33863 4.1596L9.18184 4.17766L9.02231 3.85766C8.93429 3.68218 8.80502 3.43444 8.73625 3.3054C8.58497 3.03185 8.59873 3.03702 8.17789 3.11444ZM8.38418 9.78024C9.97401 10.0977 10.5379 12.2138 9.34413 13.3906C9.02231 13.7106 8.64824 13.8809 8.16139 13.9325C7.93859 13.9557 7.86708 13.9531 7.68554 13.9144C6.90438 13.7493 6.28551 13.117 6.11222 12.3015C6.04896 12.0099 6.06821 11.4628 6.15073 11.2048C6.34052 10.606 6.7421 10.1415 7.27296 9.90927C7.62778 9.75185 8.01561 9.70798 8.38418 9.78024ZM15.6842 9.78282C15.8079 9.80347 15.9977 9.8654 16.1353 9.92734C16.3333 10.0177 16.4158 10.077 16.6359 10.2835C16.8587 10.4951 16.9164 10.5673 17.0264 10.7764C17.2355 11.1764 17.2795 11.3622 17.2795 11.8473C17.2795 12.206 17.2712 12.286 17.2135 12.4667C17.0264 13.0628 16.6441 13.517 16.1243 13.7596C15.5851 14.0099 15.0735 14.0099 14.5289 13.757C14.1906 13.5996 13.8193 13.2357 13.6268 12.8796C13.4342 12.5183 13.3352 11.9609 13.3875 11.5557C13.4865 10.828 13.9211 10.219 14.5564 9.92218C14.9223 9.75185 15.2716 9.70798 15.6842 9.78282Z'
-                      fill='#74E3FF'
-                    ></path>
-                  </svg>
-                </a>
+    <>
+      {/* Main Header */}
+      <header
+        className={cn(
+          'fixed top-0 left-0 right-0 z-50 transition-all duration-300',
+          isScrolled
+            ? 'bg-black/80 backdrop-blur-xl border-b border-white/10'
+            : 'bg-transparent'
+        )}
+      >
+        <div className='max-w-7xl mx-auto px-3 sm:px-4 md:px-6 lg:px-8'>
+          <div className='flex items-center justify-between h-14 sm:h-16 md:h-18 lg:h-20'>
+            {/* Enhanced Logo */}
+            <Link
+              href='/'
+              className='flex items-center space-x-1 sm:space-x-2 z-50 group'
+            >
+              <div className='relative shrink-0'>
+                <div className='relative p-0.5 sm:p-1 rounded-full border border-cyan-400/30 bg-cyan-400/5 backdrop-blur-sm'>
+                  <img
+                    src='/logo.png'
+                    alt='QDOGE'
+                    className='h-6 w-6 sm:h-8 sm:w-8 md:h-9 md:w-9 lg:h-10 lg:w-10 object-contain relative z-10'
+                    onError={(e) => {
+                      e.currentTarget.src = '/logo.png';
+                    }}
+                  />
+                </div>
+                <div className='absolute inset-0 bg-cyan-400/20 rounded-full blur-lg animate-pulse group-hover:bg-cyan-400/30 transition-colors' />
               </div>
-              <div className='menu__bottom-mob-text'>
-                Garth is a parody of Aigarth, the Qubic AGI project, created for
-                maximum fun. Garth is not a pension plan, and the Garth team
-                members are not financial advisors. 2025 © all rights reserved.
-              </div>
-              <a
-                href='https://t.me/osnovoco'
-                target='_blank'
-                rel='noopener noreferrer'
-                className='menu__bottom-mob-osnovo'
-              >
-                <span>Built by Osnovo</span>
-                <svg
-                  xmlns='http://www.w3.org/2000/svg'
-                  width='13'
-                  height='12'
-                  viewBox='0 0 13 12'
-                  fill='none'
+              <div className='hidden xs:block'>
+                <TextAnimate
+                  animation='fadeIn'
+                  className='text-base sm:text-lg md:text-xl lg:text-2xl font-bold bg-linear-to-r from-cyan-400 via-purple-400 to-green-400 bg-clip-text text-transparent'
                 >
-                  <path
-                    d='M4.44037 3.65039L7.61089 8.9568H1.26984L4.44037 3.65039Z'
-                    fill='#C2F4FF'
-                  ></path>
-                  <path
-                    d='M9.70619 6.36505L7.10565 2.07673L12.3067 2.07673L9.70619 6.36505Z'
-                    fill='#C2F4FF'
-                  ></path>
-                </svg>
-              </a>
+                  QDOGE
+                </TextAnimate>
+              </div>
+            </Link>
+
+            {/* Desktop Navigation */}
+            <nav className='hidden md:flex items-center space-x-3 lg:space-x-6 xl:space-x-8'>
+              {navigationItems.map((item) => (
+                <button
+                  key={item.label}
+                  onClick={() => scrollToSection(item.scrollTo)}
+                  className='text-gray-300 hover:text-cyan-400 transition-colors duration-200 font-medium text-xs md:text-sm uppercase tracking-wider whitespace-nowrap'
+                >
+                  {item.label}
+                </button>
+              ))}
+            </nav>
+
+            {/* Desktop CTA Button */}
+            <div className='hidden md:flex items-center'>
+              <ShimmerButton
+                className='px-3 py-1.5 md:px-4 md:py-2 lg:px-6 lg:py-2 text-xs md:text-sm font-bold uppercase tracking-wider relative overflow-hidden'
+                shimmerColor='#00f3ff'
+                background='linear-gradient(135deg, #0f172a 0%, #1e293b 100%)'
+                onClick={joinDiscord}
+              >
+                <span className='relative z-10 flex items-center gap-2'>
+                  <DiscordLogoIcon width={16} height={16} />
+                  <span className='hidden sm:inline'>Join Discord</span>
+                  <span className='sm:hidden'>Discord</span>
+                </span>
+              </ShimmerButton>
             </div>
-          </nav>
-        </div>
-        <Link href='/' className='w-[30px] md:w-full'>
-          <img src='./logo.png' alt='Garth' />
-        </Link>
-        <div className='header__actions'>
-          <a href='#' data-fls-scrollto='.how' className='header__buy'>
-            <span>buy now</span>
-            <span>
-              <BuyIcon />
-            </span>
-          </a>
-          <div className='header__social'>
-            <a
-              href='https://x.com/garthonqubic'
-              target='_blank'
-              rel='noopener noreferrer'
-              className='header__social-item'
-              aria-label='Twitter / X'
+
+            {/* Mobile Menu Button */}
+            <button
+              onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
+              className='md:hidden p-1.5 sm:p-2 text-gray-300 hover:text-cyan-400 transition-colors duration-200 z-50 rounded-md border border-gray-700/50 hover:border-cyan-400/50'
+              aria-label='Toggle navigation'
             >
-              <svg
-                xmlns='http://www.w3.org/2000/svg'
-                width='20'
-                height='20'
-                viewBox='0 0 20 20'
-                fill='none'
-              >
-                <path
-                  d='M14.025 3.65625H16.172L11.482 9.03025L17 16.3442H12.68L9.294 11.9093L5.424 16.3442H3.275L8.291 10.5942L3 3.65725H7.43L10.486 7.71025L14.025 3.65625ZM13.27 15.0562H14.46L6.78 4.87725H5.504L13.27 15.0562Z'
-                  fill='white'
-                ></path>
-              </svg>
-            </a>
-            <a
-              href='https://t.me/garthonqubic'
-              target='_blank'
-              rel='noopener noreferrer'
-              className='header__social-item'
-              aria-label='Telegram'
-            >
-              <svg
-                xmlns='http://www.w3.org/2000/svg'
-                width='20'
-                height='20'
-                viewBox='0 0 20 20'
-                fill='none'
-              >
-                <path
-                  fillRule='evenodd'
-                  clipRule='evenodd'
-                  d='M16.4809 3.69164C16.6868 3.60496 16.9122 3.57507 17.1336 3.60507C17.355 3.63507 17.5643 3.72386 17.7398 3.86221C17.9152 4.00056 18.0504 4.1834 18.1312 4.39171C18.212 4.60001 18.2355 4.82617 18.1992 5.04664L16.3092 16.5108C16.1259 17.6166 14.9125 18.2508 13.8984 17.7C13.05 17.2391 11.79 16.5291 10.6567 15.7883C10.09 15.4175 8.3542 14.23 8.56754 13.385C8.75087 12.6625 11.6675 9.94747 13.3342 8.3333C13.9884 7.69914 13.69 7.3333 12.9175 7.91664C10.9992 9.36497 7.9192 11.5675 6.90087 12.1875C6.00254 12.7341 5.5342 12.8275 4.9742 12.7341C3.95254 12.5641 3.00504 12.3008 2.2317 11.98C1.1867 11.5466 1.23754 10.11 2.23087 9.69164L16.4809 3.69164Z'
-                  fill='white'
-                ></path>
-              </svg>
-            </a>
-            <a
-              href='#'
-              target='_blank'
-              rel='noopener noreferrer'
-              className='header__social-item'
-              aria-label='Github'
-            >
-              <svg
-                xmlns='http://www.w3.org/2000/svg'
-                width='20'
-                height='20'
-                viewBox='0 0 20 20'
-                fill='none'
-              >
-                <path
-                  d='M10.0013 1.6665C8.90695 1.6665 7.82332 1.88205 6.81227 2.30084C5.80123 2.71963 4.88257 3.33346 4.10875 4.10728C2.54594 5.67008 1.66797 7.7897 1.66797 9.99984C1.66797 13.6832 4.05964 16.8082 7.36797 17.9165C7.78464 17.9832 7.91797 17.7248 7.91797 17.4998V16.0915C5.60964 16.5915 5.11797 14.9748 5.11797 14.9748C4.73464 14.0082 4.19297 13.7498 4.19297 13.7498C3.43464 13.2332 4.2513 13.2498 4.2513 13.2498C5.08464 13.3082 5.5263 14.1082 5.5263 14.1082C6.2513 15.3748 7.4763 14.9998 7.9513 14.7998C8.0263 14.2582 8.24297 13.8915 8.4763 13.6832C6.6263 13.4748 4.68464 12.7582 4.68464 9.58317C4.68464 8.65817 5.0013 7.9165 5.54297 7.32484C5.45964 7.1165 5.16797 6.24984 5.6263 5.12484C5.6263 5.12484 6.3263 4.89984 7.91797 5.97484C8.5763 5.7915 9.29297 5.69984 10.0013 5.69984C10.7096 5.69984 11.4263 5.7915 12.0846 5.97484C13.6763 4.89984 14.3763 5.12484 14.3763 5.12484C14.8346 6.24984 14.543 7.1165 14.4596 7.32484C15.0013 7.9165 15.318 8.65817 15.318 9.58317C15.318 12.7665 13.368 13.4665 11.5096 13.6748C11.8096 13.9332 12.0846 14.4415 12.0846 15.2165V17.4998C12.0846 17.7248 12.218 17.9915 12.643 17.9165C15.9513 16.7998 18.3346 13.6832 18.3346 9.99984C18.3346 8.90549 18.1191 7.82186 17.7003 6.81081C17.2815 5.79976 16.6677 4.8811 15.8939 4.10728C15.12 3.33346 14.2014 2.71963 13.1903 2.30084C12.1793 1.88205 11.0957 1.6665 10.0013 1.6665Z'
-                  fill='white'
-                ></path>
-              </svg>
-            </a>
-            <a
-              href='https://discord.gg/Pryekk4akE'
-              target='_blank'
-              rel='noopener noreferrer'
-              className='header__social-item'
-              aria-label='Discord'
-            >
-              <svg
-                xmlns='http://www.w3.org/2000/svg'
-                width='20'
-                height='20'
-                viewBox='0 0 20 20'
-                fill='none'
-              >
-                <path
-                  fillRule='evenodd'
-                  clipRule='evenodd'
-                  d='M12.5025 3.33333C13.1225 3.33333 13.7775 3.55 14.3775 3.78917L14.8166 3.96917C15.8666 4.40917 16.4566 5.3325 16.9141 6.34667C17.6566 7.9925 18.1725 10.1867 18.3508 11.855C18.4358 12.6467 18.4566 13.4433 18.3041 13.9792C18.14 14.5517 17.5816 14.9567 17.0391 15.275L16.7708 15.4275L16.4925 15.5825C16.348 15.6625 16.2022 15.7414 16.055 15.8192L15.62 16.0442L15.0225 16.3417L14.5416 16.5783C14.4434 16.6313 14.3355 16.664 14.2244 16.6745C14.1133 16.685 14.0012 16.673 13.8948 16.6394C13.7884 16.6057 13.6899 16.5511 13.605 16.4786C13.5201 16.4061 13.4507 16.3173 13.4007 16.2175C13.3508 16.1177 13.3215 16.0089 13.3144 15.8975C13.3074 15.7861 13.3228 15.6745 13.3597 15.5691C13.3966 15.4638 13.4543 15.367 13.5294 15.2844C13.6044 15.2018 13.6953 15.1351 13.7966 15.0883L14.455 14.7633L13.9716 14.2558C12.8133 14.7308 11.4491 15 9.99997 15C8.5508 15 7.18664 14.7317 6.0283 14.2558L5.54497 14.7625L6.2058 15.0875C6.30375 15.1364 6.3911 15.2041 6.46287 15.2868C6.53464 15.3695 6.58942 15.4655 6.62409 15.5693C6.65875 15.6732 6.67263 15.7829 6.66491 15.8921C6.6572 16.0013 6.62806 16.1079 6.57914 16.2058C6.53022 16.3038 6.46249 16.3911 6.37982 16.4629C6.29714 16.5347 6.20114 16.5894 6.09729 16.6241C5.88756 16.6941 5.65861 16.678 5.4608 16.5792L5.00747 16.3542C4.67247 16.1875 4.33664 16.0225 4.00497 15.8483L3.23164 15.4275L2.96414 15.275C2.42164 14.9567 1.86247 14.5517 1.69914 13.9792C1.5458 13.4433 1.56747 12.6475 1.65164 11.8542C1.82997 10.1867 2.3458 7.9925 3.0883 6.34667C3.5458 5.3325 4.1358 4.40917 5.1858 3.96917C5.88247 3.6775 6.72664 3.33333 7.49997 3.33333C8.00247 3.33333 8.39747 3.79583 8.32497 4.28917C8.87964 4.20815 9.43942 4.16721 9.99997 4.16667C10.5758 4.16667 11.1383 4.20833 11.6783 4.29C11.6622 4.17166 11.6715 4.05125 11.7055 3.93676C11.7394 3.82226 11.7973 3.71628 11.8753 3.62584C11.9533 3.5354 12.0496 3.46256 12.1579 3.41213C12.2662 3.3617 12.3831 3.33484 12.5025 3.33333ZM7.29164 8.75C6.90486 8.75 6.53393 8.90364 6.26044 9.17713C5.98695 9.45063 5.8333 9.82156 5.8333 10.2083C5.8333 10.5951 5.98695 10.966 6.26044 11.2395C6.53393 11.513 6.90486 11.6667 7.29164 11.6667C7.67841 11.6667 8.04935 11.513 8.32284 11.2395C8.59633 10.966 8.74997 10.5951 8.74997 10.2083C8.74997 9.82156 8.59633 9.45063 8.32284 9.17713C8.04935 8.90364 7.67841 8.75 7.29164 8.75ZM12.7083 8.75C12.3215 8.75 11.9506 8.90364 11.6771 9.17713C11.4036 9.45063 11.25 9.82156 11.25 10.2083C11.25 10.5951 11.4036 10.966 11.6771 11.2395C11.9506 11.513 12.3215 11.6667 12.7083 11.6667C13.0951 11.6667 13.466 11.513 13.7395 11.2395C14.013 10.966 14.1666 10.5951 14.1666 10.2083C14.1666 9.82156 14.013 9.45063 13.7395 9.17713C13.466 8.90364 13.0951 8.75 12.7083 8.75Z'
-                  fill='white'
-                ></path>
-              </svg>
-            </a>
+              {isMobileMenuOpen ? (
+                <X className='w-5 h-5 sm:w-6 sm:h-6' />
+              ) : (
+                <Menu className='w-5 h-5 sm:w-6 sm:h-6' />
+              )}
+            </button>
           </div>
         </div>
+      </header>
+
+      {/* Mobile Menu Overlay */}
+      {isMobileMenuOpen && (
+        <div className='fixed inset-0 z-40 md:hidden'>
+          <div className='absolute inset-0 bg-black/90 backdrop-blur-xl' />
+          <div className='relative flex flex-col h-full pt-16 sm:pt-20 px-4 sm:px-6'>
+            {/* Mobile Navigation */}
+            <nav className='flex-1 space-y-4 sm:space-y-6 mt-4'>
+              {navigationItems.map((item) => (
+                <button
+                  key={item.label}
+                  onClick={() => scrollToSection(item.scrollTo)}
+                  className='block w-full text-left text-lg sm:text-xl font-medium text-gray-300 hover:text-cyan-400 transition-colors duration-200 py-2 sm:py-3 border-b border-gray-800/50 hover:border-cyan-400/30'
+                >
+                  {item.label}
+                </button>
+              ))}
+            </nav>
+
+            {/* Mobile Actions */}
+            <div className='space-y-4 sm:space-y-6 pb-6 sm:pb-8'>
+              {/* Discord Button */}
+              <ShimmerButton
+                className='w-full py-3 sm:py-4 text-base sm:text-lg font-bold uppercase tracking-wider'
+                shimmerColor='#00f3ff'
+                background='linear-gradient(135deg, #0f172a 0%, #1e293b 100%)'
+                onClick={joinDiscord}
+              >
+                <MessageCircle className='w-4 h-4 sm:w-5 sm:h-5 mr-2' />
+                Join Discord
+              </ShimmerButton>
+
+              {/* Footer Text */}
+              <div className='text-center text-xs sm:text-sm text-gray-500 leading-relaxed px-2'>
+                QDOGE is a parody project created for maximum fun. Not financial
+                advice. 2025 © All rights reserved.
+              </div>
+            </div>
+          </div>
+        </div>
+      )}
+
+      {/* Floating Dock for Desktop (Optional Enhancement) */}
+      <div className='hidden 2xl:block fixed bottom-6 lg:bottom-8 left-1/2 transform -translate-x-1/2 z-40'>
+        <Dock className='bg-black/20 border-white/10 backdrop-blur-md'>
+          <DockIcon>
+            <button
+              onClick={joinDiscord}
+              className='p-1.5 lg:p-2 text-cyan-400 hover:text-cyan-300 transition-colors duration-200'
+              aria-label='Join Discord'
+            >
+              <MessageCircle className='w-4 h-4 lg:w-5 lg:h-5' />
+            </button>
+          </DockIcon>
+          <DockIcon>
+            <button
+              onClick={() => scrollToSection('#the-yard')}
+              className='p-1.5 lg:p-2 text-cyan-400 hover:text-cyan-300 transition-colors duration-200'
+              aria-label='Back to Top'
+            >
+              <Zap className='w-4 h-4 lg:w-5 lg:h-5' />
+            </button>
+          </DockIcon>
+        </Dock>
       </div>
-    </header>
+    </>
   );
 }

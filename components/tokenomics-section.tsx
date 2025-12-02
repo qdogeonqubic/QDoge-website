@@ -1,242 +1,498 @@
+/* eslint-disable @next/next/no-img-element */
 'use client';
 
-import { useEffect, useRef, useState } from 'react';
+import { MagicCard } from '@/components/ui/magic-card';
+import {
+  Activity,
+  Coins,
+  Database,
+  Gamepad2,
+  Gift,
+  Lock,
+  Trophy,
+  Users,
+} from 'lucide-react';
+import React, { useLayoutEffect, useRef, useState } from 'react';
+// import { NumberTicker } from '@/components/ui/number-ticker'; // eslint unused var fix
+import { useScrollAnimation } from '@/hooks/useScrollAnimation';
 
-const IMAGE_BASE_URL = 'https://garthonqubic.com/assets/img/tokenomics';
-const QDOGE_TOKEN_ADDRESS = 'QDOGECAQTOKENDUMMYADDRESSHERE';
+const CHART_CENTER = 100;
+const CHART_RADIUS = 90;
 
-export function TokenomicsSection() {
-  const bottomRef = useRef<HTMLDivElement>(null);
-  const mainRef = useRef<HTMLDivElement>(null);
-  const imageRef = useRef<HTMLDivElement>(null);
-  const [copied, setCopied] = useState(false);
+const polarToCartesian = (
+  centerX: number,
+  centerY: number,
+  radius: number,
+  angleInDegrees: number
+) => {
+  const angleInRadians = ((angleInDegrees - 90) * Math.PI) / 180.0;
+  // Round coordinates to avoid tiny floating point differences between
+  // server and client that can cause React hydration warnings.
+  const round = (value: number) => Number(value.toFixed(6));
 
-  useEffect(() => {
-    const { current: bottom } = bottomRef;
-    const { current: main } = mainRef;
-    const { current: image } = imageRef;
-    const observer45 = new window.IntersectionObserver(
-      (entries) => {
-        entries.forEach((entry) => {
-          if (entry.isIntersecting) {
-            entry.target.classList.add('--watcher-view');
-          }
-        });
-      },
-      { threshold: 0.45 }
-    );
-    const observer65 = new window.IntersectionObserver(
-      (entries) => {
-        entries.forEach((entry) => {
-          if (entry.isIntersecting) {
-            entry.target.classList.add('--watcher-view');
-          }
-        });
-      },
-      { threshold: 0.65 }
-    );
+  return {
+    x: round(centerX + radius * Math.cos(angleInRadians)),
+    y: round(centerY + radius * Math.sin(angleInRadians)),
+  };
+};
 
-    if (bottom) observer45.observe(bottom);
-    if (main) observer45.observe(main);
-    if (image) observer65.observe(image);
+const describeArc = (
+  startAngle: number,
+  endAngle: number,
+  radius: number = CHART_RADIUS,
+  center: number = CHART_CENTER
+) => {
+  const start = polarToCartesian(center, center, radius, endAngle);
+  const end = polarToCartesian(center, center, radius, startAngle);
+  const largeArcFlag = endAngle - startAngle <= 180 ? '0' : '1';
 
-    return () => {
-      observer45.disconnect();
-      observer65.disconnect();
-    };
-  }, []);
+  return [
+    `M ${center} ${center}`,
+    `L ${start.x} ${start.y}`,
+    `A ${radius} ${radius} 0 ${largeArcFlag} 0 ${end.x} ${end.y}`,
+    'Z',
+  ].join(' ');
+};
 
-  const handleCopy = async () => {
-    try {
-      await navigator.clipboard.writeText(QDOGE_TOKEN_ADDRESS);
-      setCopied(true);
-      setTimeout(() => setCopied(false), 2000);
-    } catch (err) {}
+type PieSlice = {
+  title: string;
+  percentage: number;
+  color: string;
+  startAngle: number;
+  endAngle: number;
+  path: string;
+};
+
+const TokenomicsSection: React.FC = () => {
+  // Setup refs for each animation target
+  const headerRef = useRef<HTMLDivElement>(null);
+  const tableRef = useRef<HTMLDivElement>(null);
+  const chartRef = useRef<HTMLDivElement>(null);
+  const [hoveredSlice, setHoveredSlice] = useState<PieSlice | null>(null);
+
+  // Use custom scroll animation hook
+  const headerAnimation = useScrollAnimation({
+    animationType: 'mainAnim1',
+    threshold: 0.2,
+  });
+  const tableAnimation = useScrollAnimation({
+    animationType: 'mainAnim2',
+    threshold: 0.3,
+  });
+  const chartAnimation = useScrollAnimation({
+    animationType: 'mainAnim1',
+    threshold: 0.4,
+  });
+
+  // Attach DOM refs to animation hook before first paint (like in AboutSection)
+  // Remove setState from effect, synchronize refs only
+  useLayoutEffect(() => {
+    if (headerRef.current) headerAnimation.elementRef(headerRef.current);
+  }, [headerAnimation]);
+  useLayoutEffect(() => {
+    if (tableRef.current) tableAnimation.elementRef(tableRef.current);
+  }, [tableAnimation]);
+  useLayoutEffect(() => {
+    if (chartRef.current) chartAnimation.elementRef(chartRef.current);
+  }, [chartAnimation]);
+
+  // Read animation class directly from hook (no setState)
+  const headerAnimClass = headerAnimation.animationClass;
+  const tableAnimClass = tableAnimation.animationClass;
+  const chartAnimClass = chartAnimation.animationClass;
+
+  const tokenomicsData = [
+    {
+      title: 'TEAM',
+      percentage: 15,
+      amount: '3.15B',
+      description: '12 months vested',
+      icon: Users,
+      color: 'from-blue-400 to-cyan-500',
+      delay: 0.1,
+      sliceColor: '#22d3ee',
+  },
+    {
+      title: 'AIRDROP',
+      percentage: 15,
+      amount: '3.15B',
+      description: '3 Parts Distribution',
+      icon: Gift,
+      color: 'from-green-400 to-emerald-500',
+      delay: 0.2,
+      sliceColor: '#34d399',
+  },
+    {
+      title: 'LIQUIDITY POOLS',
+      percentage: 20,
+      amount: '4.2B',
+      description: 'DEX Liquidity',
+      icon: Coins,
+      color: 'from-purple-400 to-pink-500',
+      delay: 0.3,
+      sliceColor: '#a855f7',
+  },
+    {
+      title: 'EPOCH DROPS',
+      percentage: 20,
+      amount: '4.2B',
+      description: 'Kennel Club Training',
+      icon: Trophy,
+      color: 'from-orange-400 to-red-500',
+      delay: 0.4,
+      sliceColor: '#fb923c',
+  },
+    {
+      title: 'MARKETING',
+      percentage: 7.5,
+      amount: '1.575B',
+      description: 'Giveaways & Promotion',
+      icon: Gamepad2,
+      color: 'from-teal-400 to-blue-500',
+      delay: 0.5,
+      sliceColor: '#0ea5e9',
+  },
+    {
+      title: 'MINING REWARDS',
+      percentage: 7.5,
+      amount: '1.575B',
+      description: 'Future Mining Incentives',
+      icon: Lock,
+      color: 'from-indigo-400 to-purple-500',
+      delay: 0.6,
+      sliceColor: '#6366f1',
+  },
+    {
+      title: 'NFT REWARDS',
+      percentage: 7.5,
+      amount: '1.575B',
+      description: 'Future Mining Incentives',
+      icon: Lock,
+      color: 'from-indigo-400 to-purple-500',
+      delay: 0.6,
+      sliceColor: '#8b5cf6',
+  },
+    {
+      title: 'RESERVES',
+      percentage: 5,
+      amount: '1.575B',
+      description: 'Future Mining Incentives',
+      icon: Lock,
+      color: 'from-indigo-400 to-purple-500',
+      delay: 0.6,
+      sliceColor: '#4ade80',
+  },
+    {
+      title: 'GAME REWARDS',
+      percentage: 2.5,
+      amount: '1.575B',
+      description: 'Future Mining Incentives',
+      icon: Lock,
+      color: 'from-indigo-400 to-purple-500',
+      delay: 0.6,
+      sliceColor: '#f97316',
+  },
+  ];
+
+  const totalPercentage = tokenomicsData.reduce(
+    (sum, item) => sum + item.percentage,
+    0
+  );
+  const pieChartData = tokenomicsData.reduce(
+    (acc, item) => {
+      const start = acc.currentAngle;
+      const angle = (item.percentage / totalPercentage) * 360;
+      const end = start + angle;
+      acc.segments.push(`${item.sliceColor} ${start}deg ${end}deg`);
+      acc.slices.push({
+        title: item.title,
+        percentage: item.percentage,
+        color: item.sliceColor,
+        startAngle: start,
+        endAngle: end,
+        path: describeArc(start, end),
+      });
+      acc.currentAngle = end;
+      return acc;
+    },
+    { segments: [] as string[], slices: [] as PieSlice[], currentAngle: 0 }
+  );
+  const pieChartGradient = pieChartData.segments.length
+    ? `conic-gradient(${pieChartData.segments.join(', ')})`
+    : 'conic-gradient(#22d3ee 0deg 360deg)';
+  const activeSlice = hoveredSlice ?? {
+    title: 'TOTAL',
+    percentage: 100,
+    color: '#22d3ee',
+    startAngle: 0,
+    endAngle: 360,
+    path: '',
   };
 
   return (
-    <div className='page__tokenomics tokenomics'>
-      <div className='tokenomics__bg'>
-        <picture>
-          <source
-            media='(min-width: 1920.98px)'
-            srcSet={`${IMAGE_BASE_URL}/bg.webp`}
-            type='image/webp'
-          />
-          <source
-            media='(min-width: 767.98px)'
-            srcSet={`${IMAGE_BASE_URL}/bg-1920.webp`}
-            type='image/webp'
-          />
-          <img
-            src={`${IMAGE_BASE_URL}/bg-mob.webp`}
-            alt='BG'
-            className='w-full h-full object-cover object-top'
-          />
-        </picture>
-      </div>
-      <div
-        id='tokenomics-section'
-        className='tokenomics__bottom relative z-10'
-        data-fls-watcher-threshold='0.45'
-        data-fls-watcher-once=''
-        data-fls-watcher=''
-        ref={bottomRef}
-      >
-        <div
-          className='tokenomics__bottom-main'
-          data-fls-watcher-threshold='0.45'
-          data-fls-watcher-once=''
-          data-fls-watcher=''
-          ref={mainRef}
-        >
-          <h2 className='tokenomics__bottom-main-title'>QDoge Tokenomics</h2>
-          <ul className='tokenomics__bottom-main-list'>
-            <li className='tokenomics__bottom-main-list-item'>
-              <div className='tokenomics__bottom-main-list-item-main'>
-                <span>Team</span>
-                <span>[ 15% ]</span>
+    <section
+      id='tokenomics'
+      className='relative py-20 lg:py-32 overflow-hidden'
+    >
+      {/* Grid Pattern Overlay (REMOVED) */}
+      {/* <div className='absolute inset-0 bg-[linear-gradient(rgba(0,243,255,0.03)_1px,transparent_1px),linear-gradient(90deg,rgba(0,243,255,0.03)_1px,transparent_1px)] bg-size-[50px_50px]' /> */}
+
+      <div className='relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8'>
+        {/* Cyberpunk Terminal Header */}
+        <div ref={headerRef} className={`mb-16 lg:mb-24 ${headerAnimClass}`}>
+          <div className='mx-auto'>
+            <MagicCard className='border-2 border-cyan-400/60 bg-black/90 backdrop-blur-sm'>
+              {/* Terminal Header Bar */}
+              <div className='border-b border-cyan-400/40 p-4 bg-cyan-400/10'>
+                <div className='flex items-center justify-between'>
+                  <div className='flex items-center space-x-3'>
+                    <div className='flex space-x-2'>
+                      <div className='w-3 h-3 bg-red-400 rounded-full'></div>
+                      <div className='w-3 h-3 bg-yellow-400 rounded-full'></div>
+                      <div className='w-3 h-3 bg-green-400 rounded-full'></div>
+                    </div>
+                    <span className='text-cyan-400 font-mono text-sm'>
+                      QDOGE TOKENOMICS
+                    </span>
+                  </div>
+                  <div className='flex items-center space-x-2'>
+                    <Activity className='w-4 h-4 text-green-400 animate-pulse' />
+                    <span className='text-green-400 font-mono text-xs'>
+                      ONLINE
+                    </span>
+                  </div>
+                </div>
               </div>
-            </li>
-            <li className='tokenomics__bottom-main-list-item'>
-              <div className='tokenomics__bottom-main-list-item-main'>
-                <span>Airdrop</span>
-                <span>[ 15% ]</span>
+
+              {/* Terminal Content */}
+              <div className='p-6 lg:p-8'>
+                <div className='flex flex-col lg:flex-row items-center gap-10'>
+                  <div className='flex-1 text-center lg:text-left'>
+                    <h2 className='text-4xl lg:text-5xl font-black text-cyan-400 mb-4 font-mono tracking-wider'>
+                      QDOGE TOKENOMICS
+                    </h2>
+                    <div className='flex items-center justify-center lg:justify-start space-x-2 mb-6'>
+                      <span className='text-cyan-400 font-mono text-2xl font-black'>
+                        Built for Training and Sustained Rewards
+                      </span>
+                    </div>
+                    <p className='text-sm text-cyan-100/80 font-mono leading-relaxed max-w-xl lg:max-w-none mx-auto lg:mx-0'>
+                      21,000,000,000 total supply, precision‑allocated to reward discipline, deepen liquidity, and fuel long‑term Doge mining.
+                    </p>
+                  </div>
+                  <div className='flex flex-col items-center gap-4'>
+                    <div
+                      className='relative flex items-center justify-center w-44 h-44 lg:w-52 lg:h-52 rounded-full ring-2 ring-cyan-400/40 shadow-[0_0_30px_rgba(45,212,191,0.35)]'
+                      style={{ background: pieChartGradient }}
+                    >
+                      <svg
+                        viewBox='0 0 200 200'
+                        className='w-full h-full'
+                        role='img'
+                        aria-label='Token distribution pie chart'
+                        onMouseLeave={() => setHoveredSlice(null)}
+                      >
+                        {pieChartData.slices.map((slice) => (
+                          <path
+                            key={slice.title}
+                            d={slice.path}
+                            fill={slice.color}
+                            className='cursor-pointer transition-opacity duration-200'
+                            style={{
+                              opacity:
+                                hoveredSlice &&
+                                hoveredSlice.title !== slice.title
+                                  ? 0.4
+                                  : 1,
+                            }}
+                            onMouseEnter={() => setHoveredSlice(slice)}
+                          />
+                        ))}
+                      </svg>
+                      <div className='absolute inset-8 rounded-full bg-black/90 border border-cyan-400/30 flex flex-col items-center justify-center text-center px-3'>
+                        <span className='text-[10px] uppercase text-cyan-300 font-mono tracking-[0.3em]'>
+                          {activeSlice.title}
+                        </span>
+                        <span
+                          className='text-xl font-black font-mono'
+                          style={{ color: activeSlice.color }}
+                        >
+                          {activeSlice.percentage}%
+                        </span>
+                      </div>
+                    </div>
+                    <div className='grid grid-cols-2 gap-3 text-xs font-mono text-cyan-100/80'>
+                      {tokenomicsData.map((item) => (
+                        <div key={item.title} className='flex items-center gap-2'>
+                          <span
+                            className='w-3 h-3 rounded-sm border border-cyan-400/40'
+                            style={{ backgroundColor: item.sliceColor }}
+                          />
+                          <span className='uppercase tracking-wide'>
+                            {item.title}
+                          </span>
+                          <span className='text-cyan-300'>[{item.percentage}%]</span>
+                        </div>
+                      ))}
+                    </div>
+                  </div>
+                </div>
               </div>
-            </li>
-            <li className='tokenomics__bottom-main-list-item'>
-              <div className='tokenomics__bottom-main-list-item-main'>
-                <span>Liquidity Pools</span>
-                <span>[ 20% ]</span>
-              </div>
-            </li>
-            <li className='tokenomics__bottom-main-list-item'>
-              <div className='tokenomics__bottom-main-list-item-main'>
-                <span>Epoch Drops</span>
-                <span>[ 20% ]</span>
-              </div>
-            </li>
-            <li className='tokenomics__bottom-main-list-item'>
-              <div className='tokenomics__bottom-main-list-item-main'>
-                <span>Marketing</span>
-                <span>[ 7.5% ]</span>
-              </div>
-            </li>
-            <li className='tokenomics__bottom-main-list-item'>
-              <div className='tokenomics__bottom-main-list-item-main'>
-                <span>Rewards</span>
-                <span>[ 22.5% ]</span>
-              </div>
-            </li>
-          </ul>
-          <div className='tokenomics__bottom-main-total'>
-            <span>Total Supply:</span>
-            <span>[ 21,000,000,000 QDOGE ]</span>
+            </MagicCard>
           </div>
-          <div className='tokenomics__bottom-main-bottom'>
-            <div className='tokenomics__bottom-main-ca'>
-              <div className='tokenomics__bottom-main-ca-value'>
-                <span id='tokenValue'>{QDOGE_TOKEN_ADDRESS}</span>
+        </div>
+
+        {/* Terminal-Style Tokenomics Table */}
+        <div className='grid grid-cols-1 lg:grid-cols-2 gap-8 mb-20'>
+          {/* Left Panel - Allocation Table */}
+          <div ref={tableRef} className={`${tableAnimClass}`}>
+            <MagicCard className='border-2 border-cyan-400/60 bg-black/90 backdrop-blur-sm h-full'>
+              {/* Table Header */}
+              <div className='border-b border-cyan-400/40 p-4 bg-cyan-400/10'>
+                <div className='flex items-center justify-between'>
+                  <div className='flex items-center space-x-3'>
+                    <Database className='w-5 h-5 text-cyan-400' />
+                    <span className='text-cyan-400 font-mono text-sm uppercase tracking-wider'>
+                      Allocation_Table
+                    </span>
+                  </div>
+                  <div className='flex items-center space-x-2'>
+                    <div className='w-2 h-2 bg-cyan-400 rounded-full animate-pulse' />
+                    <span className='text-cyan-400 font-mono text-xs'>
+                      ACTIVE
+                    </span>
+                  </div>
+                </div>
               </div>
-              <button
-                type='button'
-                className='tokenomics__bottom-main-ca-button copy-ca-btn button blue'
-                onClick={handleCopy}
-              >
-                <span>
-                  <svg
-                    xmlns='http://www.w3.org/2000/svg'
-                    width='20'
-                    height='20'
-                    viewBox='0 0 20 20'
-                    fill='none'
+
+              {/* Table Content */}
+              <div className='p-6 font-mono text-sm'>
+                {tokenomicsData.map((item) => (
+                  <div
+                    key={item.title}
+                    className='flex justify-between items-center py-3 border-b border-cyan-400/20 hover:bg-cyan-400/5 transition-colors duration-300'
                   >
-                    <path
-                      d='M4.99935 15.833V0.833008H12.4993L17.4993 5.83301V15.833H4.99935ZM11.666 6.66634V2.49967H6.66602V14.1663H15.8327V6.66634H11.666ZM1.66602 19.1663V5.83301H3.33268V17.4997H12.4993V19.1663H1.66602Z'
-                      fill='#172A36'
-                    />
-                  </svg>
-                </span>
-              </button>
-            </div>
-            <div className='tokenomics__bottom-main-social social'>
-              <a
-                href='https://x.com/garthonqubic'
-                target='_blank'
-                className='tokenomics__bottom-main-social-item social-item social-item--blue-border'
-                rel='noopener noreferrer'
-              >
-                <svg
-                  xmlns='http://www.w3.org/2000/svg'
-                  width='20'
-                  height='20'
-                  viewBox='0 0 20 20'
-                  fill='none'
-                >
-                  <path
-                    d='M14.025 3.65625H16.172L11.482 9.03025L17 16.3442H12.68L9.294 11.9093L5.424 16.3442H3.275L8.291 10.5942L3 3.65725H7.43L10.486 7.71025L14.025 3.65625ZM13.27 15.0562H14.46L6.78 4.87725H5.504L13.27 15.0562Z'
-                    fill='#74E3FF'
-                  />
-                </svg>
-              </a>
-              <a
-                href='https://t.me/garthonqubic'
-                target='_blank'
-                className='tokenomics__bottom-main-social-item social-item social-item--blue-border'
-                rel='noopener noreferrer'
-              >
-                <svg
-                  xmlns='http://www.w3.org/2000/svg'
-                  width='20'
-                  height='20'
-                  viewBox='0 0 20 20'
-                  fill='none'
-                >
-                  <path
-                    fillRule='evenodd'
-                    clipRule='evenodd'
-                    d='M16.4809 3.69164C16.6868 3.60496 16.9122 3.57507 17.1336 3.60507C17.355 3.63507 17.5643 3.72386 17.7398 3.86221C17.9152 4.00056 18.0504 4.1834 18.1312 4.39171C18.212 4.60001 18.2355 4.82617 18.1992 5.04664L16.3092 16.5108C16.1259 17.6166 14.9125 18.2508 13.8984 17.7C13.05 17.2391 11.79 16.5291 10.6567 15.7883C10.09 15.4175 8.3542 14.23 8.56754 13.385C8.75087 12.6625 11.6675 9.94747 13.3342 8.3333C13.9884 7.69914 13.69 7.3333 12.9175 7.91664C10.9992 9.36497 7.9192 11.5675 6.90087 12.1875C6.00254 12.7341 5.5342 12.8275 4.9742 12.7341C3.95254 12.5641 3.00504 12.3008 2.2317 11.98C1.1867 11.5466 1.23754 10.11 2.23087 9.69164L16.4809 3.69164Z'
-                    fill='#74E3FF'
-                  />
-                </svg>
-              </a>
-              <a
-                href='https://discord.gg/Pryekk4akE'
-                target='_blank'
-                className='tokenomics__bottom-main-social-item social-item social-item--blue-border'
-                rel='noopener noreferrer'
-              >
-                <svg
-                  xmlns='http://www.w3.org/2000/svg'
-                  width='20'
-                  height='20'
-                  viewBox='0 0 20 20'
-                  fill='none'
-                >
-                  <path
-                    d='M6.81117 3.04742C6.14853 3.16032 5.07081 3.43355 4.36817 3.66613C3.85306 3.83548 3.09291 4.13129 3.0329 4.18548C2.96038 4.24871 2.47778 4.95323 2.22773 5.35968C0.982479 7.37613 0.309842 9.29548 0.0422877 11.6032C-0.0227255 12.17 -0.010223 14.1481 0.0622918 14.5681C0.0797954 14.6674 0.172314 14.7374 0.814945 15.1213C2.0902 15.889 3.27545 16.4219 4.67073 16.8555L5.13332 17L5.19084 16.9368C5.37587 16.7335 5.88098 15.9997 6.09352 15.6226C6.15353 15.5165 6.21354 15.4194 6.22605 15.4035C6.25355 15.3719 6.22855 15.3584 5.9835 15.2726C5.71844 15.1777 5.11582 14.9135 4.81076 14.76L4.5382 14.6223L4.61072 14.5748C4.65073 14.5477 4.74325 14.4845 4.81576 14.4303L4.94579 14.3355L5.06581 14.3897C5.28836 14.4913 6.05851 14.7577 6.45859 14.8729C7.73635 15.2387 8.9341 15.3945 10.2544 15.3674C11.4896 15.3426 12.4973 15.1845 13.6926 14.83C14.0501 14.7239 14.7378 14.4777 14.9528 14.3784L15.0478 14.3355L15.2354 14.471C15.3404 14.5432 15.4279 14.611 15.4304 14.6177C15.4454 14.6494 14.6378 15.031 14.2102 15.1935C14.0726 15.2455 13.9126 15.3087 13.8526 15.3313L13.7451 15.3719L13.8876 15.6158C14.1402 16.0448 14.4927 16.5619 14.7528 16.8803L14.8478 16.9977L15.3654 16.8397C16.0781 16.6184 16.5481 16.44 17.3358 16.0855C18.2135 15.6926 19.0162 15.2545 19.7038 14.7939C19.9188 14.6494 19.9213 14.6494 19.9363 14.5319C20.0014 14.0035 20.0214 12.7503 19.9738 12.0887C19.7763 9.3271 18.8686 6.86581 17.1583 4.4542L16.9482 4.16065L16.6307 4.03194C15.713 3.66839 14.7103 3.36581 13.6976 3.14903C13.38 3.08355 12.9124 3 12.8474 3C12.7899 3 12.6799 3.17387 12.4523 3.61871C12.3648 3.79258 12.2823 3.94613 12.2698 3.95742C12.2598 3.96871 12.1122 3.96194 11.9172 3.93936C11.2271 3.86258 11.0895 3.85581 10.2844 3.84226C9.29917 3.82645 8.89659 3.84678 7.86638 3.96194L7.72385 3.97774L7.57882 3.69774C7.49881 3.54419 7.38128 3.32742 7.31877 3.21452C7.18124 2.97516 7.19374 2.97968 6.81117 3.04742ZM6.9987 8.88C8.444 9.15774 8.9566 11.0094 7.87138 12.039C7.57882 12.319 7.23875 12.4681 6.79616 12.5132C6.59362 12.5335 6.52861 12.5313 6.36358 12.4974C5.65343 12.3529 5.09082 11.7997 4.93328 11.0861C4.87577 10.831 4.89328 10.3523 4.96829 10.1265C5.14083 9.60258 5.5059 9.19613 5.9885 8.9929C6.31106 8.85516 6.66364 8.81678 6.9987 8.88ZM13.6351 8.88226C13.7476 8.90032 13.9201 8.95452 14.0451 9.00871C14.2252 9.08774 14.3002 9.13968 14.5002 9.32032C14.7028 9.50548 14.7553 9.56871 14.8553 9.75161C15.0453 10.1016 15.0854 10.2642 15.0854 10.6887C15.0854 11.0026 15.0778 11.0726 15.0253 11.2306C14.8553 11.7523 14.5077 12.1497 14.0351 12.3619C13.545 12.581 13.0799 12.581 12.5848 12.3597C12.2773 12.2219 11.9397 11.9035 11.7647 11.5919C11.5896 11.2758 11.4996 10.7881 11.5471 10.4335C11.6371 9.79677 12.0322 9.26387 12.6098 9.00419C12.9424 8.85516 13.26 8.81677 13.6351 8.88226Z'
-                    fill='#74E3FF'
-                  />
-                </svg>
-              </a>
-            </div>
+                    <div className='flex items-center space-x-3'>
+                      <item.icon className='w-4 h-4 text-cyan-400' />
+                      <span className='text-cyan-300 lowercase'>
+                        {item.title.toLowerCase().replace(' ', '_')}:
+                      </span>
+                    </div>
+                    <div className='flex items-center space-x-4'>
+                      <span className='text-cyan-400 font-black'>
+                        [ {item.percentage}% ]
+                      </span>
+                    </div>
+                  </div>
+                ))}
+                
+                {/* Total Supply Display */}
+                <div className='mt-6 pt-4 border-t border-cyan-400/40 bg-cyan-400/5 -mx-6 px-6 py-4'>
+                  <div className='flex justify-between items-center'>
+                    <span className='text-cyan-400 font-black'>
+                      total_supply:
+                    </span>
+                    <span className='text-cyan-400 font-black text-lg'>
+                      [ 21,000,000,000 qdoge ]
+                    </span>
+                  </div>
+                </div>
+              </div>
+            </MagicCard>
+          </div>
+
+          {/* Right Panel - Visual Chart Placeholder */}
+          <div ref={chartRef} className={`${chartAnimClass}`}>
+            <MagicCard className='border-2 border-cyan-400/60 bg-black/80 backdrop-blur-sm h-full min-h-[500px] lg:min-h-[600px] flex items-center justify-center'>
+              <img
+                src='/tokenomics.png'
+                alt='QDOGE AI Portrait'
+                className='w-full h-full object-contain'
+              />
+            </MagicCard>
           </div>
         </div>
-        <div
-          className='tokenomics__bottom-image'
-          data-fls-watcher-threshold='0.65'
-          data-fls-watcher-once=''
-          data-fls-watcher=''
-          ref={imageRef}
-        >
-          <div className='tokenomics__bottom-image-top'>
-            <img src={`${IMAGE_BASE_URL}/bottom-image-top.svg`} alt='TOP' />
-          </div>
-          <div className='tokenomics__bottom-image-main'>
-            <img src={`${IMAGE_BASE_URL}/bottom-image-main.webp`} alt='QDoge' />
-          </div>
+
+        {/* Airdrop Breakdown Terminal */}
+        <div className='mb-20'>
+          <MagicCard className='border-2 border-cyan-400/60 bg-black/90 backdrop-blur-sm'>
+            {/* Terminal Header */}
+            <div className='border-b border-cyan-400/40 p-4 bg-cyan-400/10'>
+              <div className='flex items-center justify-between'>
+                <div className='flex items-center space-x-3'>
+                  <Gift className='w-5 h-5 text-cyan-400' />
+                  <span className='text-cyan-400 font-mono text-sm uppercase tracking-wider'>
+                    Airdrop_Protocol
+                  </span>
+                </div>
+                <div className='flex items-center space-x-2'>
+                  <div className='w-2 h-2 bg-cyan-400 rounded-full animate-pulse' />
+                  <span className='text-cyan-400 font-mono text-xs'>
+                    ACTIVE
+                  </span>
+                </div>
+              </div>
+            </div>
+
+            {/* Airdrop Details */}
+            <div className='p-6 lg:p-8'>
+              <div className='grid grid-cols-1 lg:grid-cols-3 gap-8 font-mono'>
+                <div className='text-center border border-cyan-400/30 p-6 bg-cyan-400/5'>
+                  <div className='text-cyan-400 font-black text-lg mb-2 uppercase tracking-wider'>
+                    QDoge Mining Rewards
+                  </div>
+                  <div className='text-4xl font-black text-cyan-400 mb-3'>
+                    7.5%
+                  </div>
+                  <div className='text-cyan-300 text-sm leading-relaxed'>
+                    Once Dogecoin mining is live, QDoge allocates 7.5% of supply to mining‑aligned airdrops. 2.5% is streamed monthly starting Sept '26 to the most obedient trainees on the Top Kennel List.
+                  </div>
+                </div>
+
+                <div className='text-center border border-orange-400/30 p-6 bg-orange-400/5'>
+                  <div className='text-orange-400 font-black text-lg mb-2 uppercase tracking-wider'>
+                    NFT Reward Engine
+                  </div>
+                  <div className='text-4xl font-black text-orange-400 mb-3'>
+                    7.5%
+                  </div>
+                  <div className='text-orange-300 text-sm leading-relaxed'>
+                    Three NFT collections (2.5% each) turn art into multipliers on QDoge rewards. Holding higher rarity means your treats scale with your discipline.
+                  </div>
+                </div>
+
+                <div className='text-center border border-green-400/30 p-6 bg-green-400/5'>
+                  <div className='text-green-400 font-black text-lg mb-2 uppercase tracking-wider'>
+                    P2E Games
+                  </div>
+                  <div className='text-4xl font-black text-green-400 mb-3'>
+                    3%
+                  </div>
+                  <div className='text-green-300 text-sm leading-relaxed'>
+                    P2E titles like QDoge Rocket and future games create an always‑on loop of skill, fun, and token flow. Game rewards come from a dedicated 3% allocation so the kennel can play without draining core reserves.
+                  </div>
+                </div>
+              </div>
+
+              {/* Command Line */}
+              <div className='mt-8 pt-6 border-t border-cyan-400/30'>
+                <div className='text-center'>
+                  <div className='flex justify-center space-x-4'>
+                    <button className='px-6 py-2 bg-cyan-400/20 border border-cyan-400/50 text-cyan-400 font-mono text-sm hover:bg-cyan-400/30 transition-all duration-300'>
+                      [Y] CHECK_ELIGIBILITY
+                    </button>
+                    <button className='px-6 py-2 border border-orange-400/50 text-orange-400 font-mono text-sm hover:bg-orange-400/10 transition-all duration-300'>
+                      [N] VIEW_KENNEL
+                    </button>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </MagicCard>
         </div>
       </div>
-    </div>
+    </section>
   );
-}
+};
+
+export default TokenomicsSection;
