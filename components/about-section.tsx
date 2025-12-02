@@ -203,41 +203,15 @@ const AboutSection: React.FC = () => {
             </motion.div>
 
             {/* Right Panel - Holographic Portrait */}
-            <motion.div
-              initial='hidden'
-              whileInView='visible'
-              viewport={{ once: true, amount: 0.2 }}
-              variants={{
-                hidden: {
-                  opacity: 0,
-                  x: 60,
-                  scale: 0.85,
-                  filter: 'blur(10px)',
-                },
-                visible: {
-                  opacity: 1,
-                  x: 0,
-                  scale: 1,
-                  filter: 'blur(0px)',
-                  transition: {
-                    type: 'spring',
-                    stiffness: 300,
-                    damping: 25,
-                    duration: 0.4,
-                    delay: 0.1,
-                  },
-                },
-              }}
-            >
-              <video
-                  src='https://cb9j9fxetpmnxx5v.public.blob.vercel-storage.com/qdoge-promo.mp4'
-                  autoPlay
-                  loop
-                  muted
-                  playsInline
-                  className='w-full h-full object-cover'
-                />
-            </motion.div>
+            
+            <video
+              src='https://cb9j9fxetpmnxx5v.public.blob.vercel-storage.com/qdoge-promo.mp4'
+              autoPlay
+              loop
+              muted
+              playsInline
+              className='w-full h-full object-cover'
+            />
           </div>
         </motion.div>
       </div>
