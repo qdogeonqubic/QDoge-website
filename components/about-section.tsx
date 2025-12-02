@@ -203,12 +203,10 @@ const AboutSection: React.FC = () => {
             </motion.div>
 
             {/* Right Panel - Holographic Portrait */}
-            
+
             <video
               src='https://cb9j9fxetpmnxx5v.public.blob.vercel-storage.com/qdoge-promo.mp4'
-              autoPlay
-              loop
-              muted
+              controls
               playsInline
               className='w-full h-full object-cover'
             />
