@@ -6,11 +6,6 @@ import { motion } from 'framer-motion';
 import React from 'react';
 
 const AboutSection: React.FC = () => {
-  const socialButtons = [
-    { icon: '𝕏', label: 'X', href: 'https://x.com/QDogeOnQubic' },
-    { icon: '✈', label: 'Telegram', href: 'https://t.me/qdoge' },
-    { icon: '💀', label: 'Discord', href: 'https://discord.gg/rZd5JW4Vjt' },
-  ];
 
   return (
     <section id='about' className='relative py-20 lg:py-32 overflow-hidden'>
@@ -26,7 +21,7 @@ const AboutSection: React.FC = () => {
             hidden: { opacity: 0 },
           }}
         >
-          <div className='grid grid-cols-1 lg:grid-cols-2 gap-8 lg:gap-12'>
+          <div className=''>
             {/* Left Panel - Terminal Interface */}
             <motion.div
               className='relative'
@@ -96,7 +91,7 @@ const AboutSection: React.FC = () => {
                 {/* Terminal Content */}
                 <div className='p-6 lg:p-8'>
                   <motion.h2
-                    className='text-4xl lg:text-5xl font-black text-cyan-400 mb-6 tracking-wider font-mono'
+                    className='text-4xl lg:text-5xl font-black text-cyan-400 mb-6 tracking-wider font-mono text-center'
                     initial={{ opacity: 0, y: 15, scale: 0.9 }}
                     whileInView={{ opacity: 1, y: 0, scale: 1 }}
                     viewport={{ once: true }}
@@ -110,8 +105,17 @@ const AboutSection: React.FC = () => {
                   >
                     ABOUT QDOGE
                   </motion.h2>
-
-                  <div className='space-y-4 text-cyan-300 font-mono text-sm lg:text-base leading-relaxed'>
+                  <div className='flex justify-center mb-4'>
+                    <video
+                      src='https://cb9j9fxetpmnxx5v.public.blob.vercel-storage.com/qdoge-promo.mp4'
+                      controls
+                      playsInline
+                      className='object-cover'
+                      width={500}
+                      height={300}
+                    />
+                  </div>
+                  <div className='space-y-4 text-cyan-300 font-mono text-sm lg:text-base leading-relaxed pt-4'>
                     {[
                       "a futuristic ai robotic shiba inu, sent from the future by anna's consciousness. born from qubic's overclocked mining rigs in aigarth's yard. mission: prepare the qubic community for the ultimate dogecoin mining conquest.",
                       "after monero, qubic's eyes turned toward dogecoin. doge is a giant defended by massive hashpower and entrenched asic miners. success requires more than brute force: preparation, unity, and strategy.",
@@ -134,82 +138,13 @@ const AboutSection: React.FC = () => {
                       </motion.p>
                     ))}
                   </div>
-
-                  {/* Action Buttons */}
-                  <motion.div
-                    className='mt-8 flex flex-wrap gap-4'
-                    initial={{ opacity: 0, y: 15 }}
-                    whileInView={{ opacity: 1, y: 0 }}
-                    viewport={{ once: true }}
-                    transition={{
-                      type: 'spring',
-                      stiffness: 300,
-                      damping: 20,
-                      duration: 0.4,
-                      delay: 0.35,
-                    }}
-                  >
-                    <motion.button
-                      className='bg-cyan-400/20 border border-cyan-400/50 text-cyan-400 px-6 py-2 rounded font-mono text-sm hover:bg-cyan-400/30 transition-all duration-300 flex items-center space-x-2'
-                      whileHover={{ scale: 1.08, y: -2 }}
-                      whileTap={{ scale: 0.95 }}
-                      transition={{
-                        type: 'spring',
-                        stiffness: 400,
-                        damping: 17,
-                      }}
-                    >
-                      <span>buy now</span>
-                      <motion.span
-                        className='text-white'
-                        animate={{ rotate: [0, 10, -10, 0] }}
-                        transition={{
-                          duration: 2,
-                          repeat: Infinity,
-                          ease: 'easeInOut',
-                        }}
-                      >
-                        💀
-                      </motion.span>
-                    </motion.button>
-
-                    <div className='flex space-x-2'>
-                      {socialButtons.map((social, index) => (
-                        <motion.a
-                          key={social.label}
-                          href={social.href}
-                          target='_blank'
-                          rel='noopener noreferrer'
-                          className='w-10 h-10 border border-cyan-400/50 bg-cyan-400/10 text-cyan-400 rounded flex items-center justify-center hover:bg-cyan-400/20 transition-all duration-300 text-lg'
-                          initial={{ opacity: 0, scale: 0, rotate: -180 }}
-                          whileInView={{ opacity: 1, scale: 1, rotate: 0 }}
-                          viewport={{ once: true }}
-                          transition={{
-                            type: 'spring',
-                            stiffness: 400,
-                            damping: 18,
-                            delay: 0.4 + index * 0.05,
-                          }}
-                          whileHover={{ scale: 1.15, rotate: 10, y: -3 }}
-                          whileTap={{ scale: 0.9 }}
-                        >
-                          {social.icon}
-                        </motion.a>
-                      ))}
-                    </div>
-                  </motion.div>
                 </div>
               </MagicCard>
             </motion.div>
 
             {/* Right Panel - Holographic Portrait */}
 
-            <video
-              src='https://cb9j9fxetpmnxx5v.public.blob.vercel-storage.com/qdoge-promo.mp4'
-              controls
-              playsInline
-              className='w-full h-full object-cover'
-            />
+            
           </div>
         </motion.div>
       </div>
