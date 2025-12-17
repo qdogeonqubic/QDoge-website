@@ -15,6 +15,7 @@ const navigationItems = [
   { label: 'About', scrollTo: '#about' },
   { label: 'Kennel Club', scrollTo: '#kennel-club' },
   { label: 'Tokenomics', scrollTo: '#tokenomics' },
+  { label: 'Airdrop', scrollTo: '#airdrop-mechanisms' },
   { label: 'Roadmap', scrollTo: '#roadmap' },
   { label: 'Faq', scrollTo: '#faq' },
 ];
