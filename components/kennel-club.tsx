@@ -79,7 +79,7 @@ const KennelClubSection: React.FC = () => {
                 QDoge Kennel Club
               </h2>
               <p className='text-cyan-100/80 font-mono text-sm leading-relaxed'>
-                The Top 100 trainees, 56 weeks, exponentially declining
+                The Top 100 trainees, 52 weeks, exponentially declining
                 requirements. The ones who fetch, stay, and bark without fail
                 become the elite Doge miners.
               </p>

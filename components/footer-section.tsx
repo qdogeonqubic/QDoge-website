@@ -168,7 +168,7 @@ const FooterSection: React.FC = () => {
               </div>
               <div className='p-4 bg-gray-900/50 border border-green-400/30 hover:border-green-400/50 transition-colors duration-300'>
                 <div className='text-2xl font-bold text-green-400 font-mono'>
-                  56
+                  52
                 </div>
                 <div className='text-gray-400 text-sm font-mono'>
                   training_weeks

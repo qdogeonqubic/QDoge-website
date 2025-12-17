@@ -7,6 +7,7 @@ import RoadmapSection from '@/components/roadmap-section';
 import FAQSection from '@/components/faq';
 import FooterSection from '@/components/footer-section';
 import KennelClubSection from '@/components/kennel-club';
+import AirdropMechanismsSection from '@/components/airdrop-mechanisms';
 import PageLoader from '@/components/page-loader';
 
 export default function Home() {
@@ -32,6 +33,7 @@ export default function Home() {
           </div>
         </div>
         <MarqueeBanner />
+        <AirdropMechanismsSection />
         <RoadmapSection />
         <FAQSection/>
         <FooterSection />

@@ -119,7 +119,7 @@ const AboutSection: React.FC = () => {
                     {[
                       "a futuristic ai robotic shiba inu, sent from the future by anna's consciousness. born from qubic's overclocked mining rigs in aigarth's yard. mission: prepare the qubic community for the ultimate dogecoin mining conquest.",
                       "after monero, qubic's eyes turned toward dogecoin. doge is a giant defended by massive hashpower and entrenched asic miners. success requires more than brute force: preparation, unity, and strategy.",
-                      'join the kennel club. train for 56 weeks. fetch, stay, bark. earn treats and rewards. prepare for the 2026 doge mining revolution.',
+                      'join the kennel club. train for 52 weeks. fetch, stay, bark. earn treats and rewards. prepare for the 2026 doge mining revolution.',
                     ].map((text, index) => (
                       <motion.p
                         key={index}
