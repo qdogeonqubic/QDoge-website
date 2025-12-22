@@ -446,7 +446,7 @@ const TokenomicsSection: React.FC = () => {
                     7.5%
                   </div>
                   <div className='text-cyan-300 text-sm leading-relaxed'>
-                    QDoge allocates 7.5% of supply to mining‑aligned airdrops. 2.5% is streamed monthly starting Sept '26 to the most obedient trainees on the Top Kennel List.
+                    QDoge allocates 7.5% of supply to mining‑aligned airdrops. 2.5% is streamed monthly starting Sept &apos;26 to the most obedient trainees on the Top Kennel List.
                   </div>
                 </div>
 
@@ -479,12 +479,22 @@ const TokenomicsSection: React.FC = () => {
               <div className='mt-8 pt-6 border-t border-cyan-400/30'>
                 <div className='text-center'>
                   <div className='flex justify-center space-x-4'>
-                    <button className='px-6 py-2 bg-cyan-400/20 border border-cyan-400/50 text-cyan-400 font-mono text-sm hover:bg-cyan-400/30 transition-all duration-300'>
+                    <a
+                      href='https://zealy.io/cw/qdoge'
+                      target='_blank'
+                      rel='noopener noreferrer'
+                      className='px-6 py-2 bg-cyan-400/20 border border-cyan-400/50 text-cyan-400 font-mono text-sm hover:bg-cyan-400/30 transition-all duration-300 inline-block'
+                    >
                       [Y] CHECK_ELIGIBILITY
-                    </button>
-                    <button className='px-6 py-2 border border-orange-400/50 text-orange-400 font-mono text-sm hover:bg-orange-400/10 transition-all duration-300'>
-                      [N] VIEW_KENNEL
-                    </button>
+                    </a>
+                    <a
+                      href='https://docs.google.com/document/d/1q4hWqr29iD8u0UVOJKb2gSEtNa-SNeRz7EV2L1uCotQ/edit?tab=t.0'
+                      target='_blank'
+                      rel='noopener noreferrer'
+                      className='px-6 py-2 border border-orange-400/50 text-orange-400 font-mono text-sm hover:bg-orange-400/10 transition-all duration-300 inline-block'
+                    >
+                      [N] VIEW_WHITEPAPER
+                    </a>
                   </div>
                 </div>
               </div>

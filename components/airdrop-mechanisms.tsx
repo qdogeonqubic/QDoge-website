@@ -13,6 +13,7 @@ import {
   Users,
   Trophy,
   Wallet,
+  Flame,
 } from 'lucide-react';
 import React, { useEffect, useLayoutEffect, useRef, useState } from 'react';
 
@@ -63,15 +64,22 @@ const AirdropMechanismsSection: React.FC = () => {
   const distributionData = [
     {
       title: 'Community',
-      percentage: '10%',
+      percentage: '7.5%',
       icon: Users,
       color: 'text-cyan-400',
     },
     {
-      title: 'QXMR Power Players',
+      title: 'Power Players',
       percentage: '4%',
       icon: Trophy,
       color: 'text-purple-400',
+      link: '#power-players',
+    },
+    {
+      title: 'QXMR trade-in/burn',
+      percentage: '2.5%',
+      icon: Flame,
+      color: 'text-orange-400',
     },
     {
       title: 'Portal Token Holders',
@@ -148,16 +156,7 @@ const AirdropMechanismsSection: React.FC = () => {
                   <h3 className='text-2xl font-black text-cyan-300 font-mono'>Eligibility Requirements</h3>
                 </div>
                 <p className='text-cyan-200 font-mono text-sm lg:text-base leading-relaxed'>
-                  Register your Qubic wallet and{' '}
-                  <a
-                    href='https://x.com/QDogeOnQubic'
-                    target='_blank'
-                    rel='noopener noreferrer'
-                    className='text-cyan-400 hover:text-cyan-300 underline font-black transition-colors'
-                  >
-                    X
-                  </a>{' '}
-                  account with{' '}
+                  Register your Qubic wallet and X account with{' '}
                   <a
                     href='https://zealy.io/cw/qdoge'
                     target='_blank'
@@ -168,16 +167,7 @@ const AirdropMechanismsSection: React.FC = () => {
                   </a>{' '}
                   to enter the Kennel.
                   <br />
-                  The{' '}
-                  <a
-                    href='https://x.com/QDogeOnQubic'
-                    target='_blank'
-                    rel='noopener noreferrer'
-                    className='text-cyan-400 hover:text-cyan-300 underline font-black transition-colors'
-                  >
-                    X
-                  </a>{' '}
-                  account must be created before <span className='text-cyan-400 font-black'>Dec 1</span> to be eligible.
+                  The X account must be created before <span className='text-cyan-400 font-black'>Dec 1</span> to be eligible.
                 </p>
               </motion.div>
 
@@ -195,7 +185,10 @@ const AirdropMechanismsSection: React.FC = () => {
                 </div>
                 <div className='space-y-3'>
                   <p className='text-purple-200 font-mono text-sm lg:text-base'>
-                    Send <span className='text-purple-400 font-black'>100 Qubic</span> to:
+                    By <span className='text-purple-400 font-black'>Jan 5 12 UTC</span>
+                  </p>
+                  <p className='text-purple-200 font-mono text-sm lg:text-base'>
+                    Send <span className='text-purple-400 font-black'>1m Qubic</span> to:
                   </p>
                   <div className='flex flex-col gap-3 sm:flex-row sm:items-center sm:justify-between bg-black/60 border border-purple-400/40 rounded p-4 font-mono text-xs lg:text-sm text-purple-300'>
                     <span className='break-all sm:pr-4'>
@@ -225,7 +218,7 @@ const AirdropMechanismsSection: React.FC = () => {
                     </button>
                   </div>
                   <p className='text-purple-200 font-mono text-sm lg:text-base'>
-                    By <span className='text-purple-400 font-black'>Jan 5 12 UTC</span>
+                    <span className='text-purple-400 font-black'>999k</span> will go in Reserve Fund for project development
                   </p>
                 </div>
               </motion.div>
@@ -264,12 +257,11 @@ const AirdropMechanismsSection: React.FC = () => {
                     Total Airdrop: <span className='text-cyan-400'>15%</span>
                   </p>
                 </div>
-                <div className='grid md:grid-cols-3 gap-4'>
+                <div className='grid md:grid-cols-2 lg:grid-cols-4 gap-4'>
                   {distributionData.map((item, index) => {
                     const Icon = item.icon;
-                    return (
+                    const content = (
                       <motion.div
-                        key={item.title}
                         className='border border-cyan-400/30 bg-black/60 rounded-lg p-5 hover:border-cyan-400/60 transition-all'
                         initial={{ opacity: 0, scale: 0.9 }}
                         whileInView={{ opacity: 1, scale: 1 }}
@@ -287,7 +279,19 @@ const AirdropMechanismsSection: React.FC = () => {
                         </h4>
                       </motion.div>
                     );
+                    return item.link ? (
+                      <a key={item.title} href={item.link} className='block'>
+                        {content}
+                      </a>
+                    ) : (
+                      <div key={item.title}>{content}</div>
+                    );
                   })}
+                </div>
+                <div className='mt-4 p-4 bg-orange-400/5 border border-orange-400/30 rounded-lg'>
+                  <p className='text-orange-200 font-mono text-sm lg:text-base leading-relaxed'>
+                    Beginning January 8, send QXMR to address and receive QDoge (100:1)
+                  </p>
                 </div>
               </motion.div>
             </div>

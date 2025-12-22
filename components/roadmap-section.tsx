@@ -239,15 +239,25 @@ const RoadmapSection: React.FC = () => {
               </div>
 
               <div className='flex flex-col sm:flex-row gap-6 justify-center'>
-                <button className='group relative px-8 py-4 border-2 border-cyan-400/50 bg-cyan-400/10 text-cyan-400 font-mono font-bold uppercase tracking-wider hover:bg-cyan-400/20 hover:border-cyan-400 hover:shadow-lg hover:shadow-cyan-400/25 transition-all duration-300'>
+                <a
+                  href='https://zealy.io/cw/qdoge'
+                  target='_blank'
+                  rel='noopener noreferrer'
+                  className='group relative px-8 py-4 border-2 border-cyan-400/50 bg-cyan-400/10 text-cyan-400 font-mono font-bold uppercase tracking-wider hover:bg-cyan-400/20 hover:border-cyan-400 hover:shadow-lg hover:shadow-cyan-400/25 transition-all duration-300 inline-block'
+                >
                   <span className='relative z-10'>[Y] JOIN_KENNEL_CLUB</span>
                   <div className='absolute inset-0 bg-cyan-400/5 opacity-0 group-hover:opacity-100 transition-opacity duration-300' />
-                </button>
+                </a>
 
-                <button className='group relative px-8 py-4 border-2 border-orange-400/50 bg-orange-400/10 text-orange-400 font-mono font-bold uppercase tracking-wider hover:bg-orange-400/20 hover:border-orange-400 transition-all duration-300'>
+                <a
+                  href='https://docs.google.com/document/d/1q4hWqr29iD8u0UVOJKb2gSEtNa-SNeRz7EV2L1uCotQ/edit?tab=t.0'
+                  target='_blank'
+                  rel='noopener noreferrer'
+                  className='group relative px-8 py-4 border-2 border-orange-400/50 bg-orange-400/10 text-orange-400 font-mono font-bold uppercase tracking-wider hover:bg-orange-400/20 hover:border-orange-400 transition-all duration-300 inline-block'
+                >
                   <span className='relative z-10'>[N] VIEW_WHITEPAPER</span>
                   <div className='absolute inset-0 bg-orange-400/5 opacity-0 group-hover:opacity-100 transition-opacity duration-300' />
-                </button>
+                </a>
               </div>
             </div>
 

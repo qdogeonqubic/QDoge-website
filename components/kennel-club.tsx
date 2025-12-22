@@ -4,34 +4,31 @@ import { MagicCard } from '@/components/ui/magic-card';
 import { useScrollAnimation } from '@/hooks/useScrollAnimation';
 import Image from 'next/image';
 import React, { useLayoutEffect, useRef, useState } from 'react';
+import { Trophy, Gift, Users, Bot, Award } from 'lucide-react';
 
 const stepData = [
   {
     id: 1,
     title: 'Register',
-    description:
-      'Register your Qubic wallet and X account with Zealy to enter the Kennel.',
+    description: 'Register wallet Zealy',
     image: '/qdoge_stand_pose.webp',
   },
   {
     id: 2,
     title: 'Fetch',
-    description:
-      'Every week, Kennel trainees fetch a required amount of QDOGE from the market.',
+    description: 'Go buy required amount of Qdoge',
     image: '/qdoge_run.webp',
   },
   {
     id: 3,
-    title: 'Stay',
-    description:
-      'Hold your QDOGE. Positive balance, no panic dumping – obedience over noise.',
+    title: 'Sit',
+    description: 'Maintain positive balance',
     image: '/qdoge_sit.webp',
   },
   {
     id: 4,
     title: 'Bark',
-    description:
-      'Post on X, amplify the mission, and make QDoge echo across the crypto space.',
+    description: 'Post on X',
     image: '/qdoge_bark.webp',
   },
 ];
@@ -64,79 +61,159 @@ const KennelClubSection: React.FC = () => {
 
       <div className='relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8'>
         <MagicCard className='border-2 border-cyan-400/60 bg-black/70 backdrop-blur-md shadow-[0_0_60px_rgba(6,182,212,0.3)]'>
-        <div className='border-b border-cyan-400/40 p-4 bg-cyan-400/10'>
-              <div className='flex items-center justify-between'>
-                <div className='flex items-center space-x-3'>
-                  <span className='text-cyan-400 font-mono text-sm uppercase tracking-wider'>
-                    52-Week Training Program
-                  </span>
+          <div className='border-b border-cyan-400/40 p-4 bg-cyan-400/10'>
+            <div className='flex items-center justify-between'>
+              <div className='flex items-center space-x-3'>
+                <span className='text-cyan-400 font-mono text-sm uppercase tracking-wider'>
+                  Epoch Drops
+                </span>
+              </div>
+            </div>
+          </div>
+
+          <div className='p-8 lg:p-12 space-y-12'>
+            {/* Title */}
+            <div className='text-center'>
+              <h2 className='text-3xl lg:text-4xl font-black text-cyan-400 font-mono mb-4'>
+                EPOCH DROPS
+              </h2>
+            </div>
+
+            <div className='grid lg:grid-cols-2 gap-8 lg:gap-12'>
+              {/* Kennel Club List Section */}
+              <div className='space-y-6'>
+                <div className='border border-cyan-400/30 bg-cyan-400/5 rounded-lg p-6'>
+                  <div className='flex items-center gap-3 mb-4'>
+                    <Trophy className='w-6 h-6 text-cyan-400' />
+                    <h3 className='text-2xl font-black text-cyan-300 font-mono'>
+                      Kennel Club List
+                    </h3>
+                    <span className='text-cyan-400 font-mono font-black text-xl'>
+                      -15%
+                    </span>
+                  </div>
+
+                  <div className='space-y-4'>
+                    <div className='border-l-2 border-cyan-400/50 pl-4'>
+                      <p className='text-cyan-200 font-mono text-sm font-semibold mb-2'>
+                        Top 100 Trainees
+                      </p>
+                      <p className='text-cyan-200 font-mono text-sm font-semibold mb-4'>
+                        52 Week Training Program
+                      </p>
+
+                      {/* Training Steps */}
+                      <div className='grid grid-cols-4 gap-2 mb-4'>
+                        {stepData.map((step) => (
+                          <button
+                            key={step.id}
+                            type='button'
+                            className={`py-2 rounded-lg border text-xs font-mono font-black transition-all ${
+                              step.id === selectedStep.id
+                                ? 'border-cyan-400 bg-cyan-400/20 text-white shadow-[0_0_15px_rgba(34,211,238,0.5)]'
+                                : 'border-cyan-400/30 text-cyan-200 hover:border-cyan-400/70 hover:bg-cyan-400/10'
+                            }`}
+                            onClick={() => setSelectedStep(step)}
+                          >
+                            {step.title}
+                          </button>
+                        ))}
+                      </div>
+
+                      {/* Selected Step Display */}
+                      <div className='relative border border-cyan-400/40 bg-black/80 rounded-lg overflow-hidden'>
+                        <div className='p-4 space-y-2'>
+                          <p className='text-cyan-300 font-mono text-xs tracking-[0.3em] uppercase'>
+                            {selectedStep.title}
+                          </p>
+                          <p className='text-cyan-100/80 font-mono text-sm'>
+                            {selectedStep.description}
+                          </p>
+                        </div>
+                        <div className='relative w-full min-h-[300px] h-[400px]'>
+                          <Image
+                            src={selectedStep.image}
+                            alt={`${selectedStep.title} illustration`}
+                            fill
+                            sizes='(max-width: 1024px) 100vw, 50vw'
+                            className='object-contain'
+                            priority={selectedStep.id === 1}
+                          />
+                          <div className='absolute inset-0 bg-linear-to-tr from-black/60 via-black/20 to-transparent' />
+                        </div>
+                      </div>
+                    </div>
+                  </div>
                 </div>
               </div>
-            </div>
-          <div className='grid lg:grid-cols-2 gap-10 lg:gap-16 p-8 lg:p-12'>
-            <div className='space-y-6'>
-              <h2 className='text-3xl lg:text-4xl font-black text-white font-mono'>
-                QDoge Kennel Club
-              </h2>
-              <p className='text-cyan-100/80 font-mono text-sm leading-relaxed'>
-                The Top 100 trainees, 52 weeks, exponentially declining
-                requirements. The ones who fetch, stay, and bark without fail
-                become the elite Doge miners.
-              </p>
-              <p className='text-cyan-100/80 font-mono text-sm leading-relaxed'>
-                The Kennel Club is QDoge&apos;s core training ground. Top 100
-                wallets enter a 52-week discipline arc. Each week the required
-                fetch amount and the rewards both decline so the earliest, most
-                obedient trainees earn the fattest treats.
-              </p>
-              <p className='text-cyan-100/80 font-mono text-sm leading-relaxed'>
-                Trainees register their wallet on Zealy, follow weekly
-                instructions, and let the smart obedience do the talking when
-                Doge mining begins.
-              </p>
-            </div>
 
-            <div className='flex flex-col gap-6'>
-              <div className='grid grid-cols-4 gap-3'>
-                {stepData.map((step) => (
-                  <button
-                    key={step.id}
-                    type='button'
-                    className={`py-3 rounded-lg border text-sm font-mono font-black transition-all ${
-                      step.id === selectedStep.id
-                        ? 'border-cyan-400 bg-cyan-400/20 text-white shadow-[0_0_20px_rgba(34,211,238,0.5)]'
-                        : 'border-cyan-400/30 text-cyan-200 hover:border-cyan-400/70 hover:bg-cyan-400/10'
-                    }`}
-                    onClick={() => setSelectedStep(step)}
-                  >
-                    STEP {step.id}
-                  </button>
-                ))}
-              </div>
-
-              <div className='relative flex-1 border border-cyan-400/40 bg-black/80 rounded-2xl overflow-hidden'>
-                <div className='relative z-10 flex flex-col md:flex-row'>
-                  <div className='flex-1 p-6 space-y-3'>
-                    <p className='text-cyan-300 font-mono text-xs tracking-[0.3em] uppercase'>
-                      Step {selectedStep.id}
-                    </p>
-                    <h3 className='text-2xl font-black text-white font-mono'>
-                      {selectedStep.title}
+              {/* Rewards/Treats Section */}
+              <div className='space-y-6'>
+                <div className='border border-purple-400/30 bg-purple-400/5 rounded-lg p-6'>
+                  <div className='flex items-center gap-3 mb-4'>
+                    <Gift className='w-6 h-6 text-purple-400' />
+                    <h3 className='text-2xl font-black text-purple-300 font-mono'>
+                      Rewards/Treats
                     </h3>
-                    <p className='text-cyan-100/80 font-mono text-sm leading-relaxed'>
-                      {selectedStep.description}
-                    </p>
+                    <span className='text-purple-400 font-mono font-black text-xl'>
+                      -5%
+                    </span>
                   </div>
-                  <div className='relative w-full h-48 md:w-64 md:h-auto min-h-[260px] border-t md:border-t-0'>
-                    <Image
-                      src={selectedStep.image}
-                      alt={`${selectedStep.title} illustration`}
-                      fill
-                      sizes='(max-width: 1024px) 100vw, 50vw'
-                      className='object-cover'
-                      priority={selectedStep.id === 1}
-                    />
-                    <div className='absolute inset-0 bg-linear-to-tr from-black/40 via-black/10 to-transparent' />
+
+                  <div className='space-y-4'>
+                    {/* Epoch Bark Treat */}
+                    <div className='border border-purple-400/30 bg-black/60 rounded-lg p-4'>
+                      <div className='flex items-start gap-3 mb-2'>
+                        <Award className='w-5 h-5 text-purple-400 mt-0.5' />
+                        <div className='flex-1'>
+                          <h4 className='text-purple-300 font-mono font-semibold mb-1'>
+                            Epoch Bark Treat
+                          </h4>
+                          <p className='text-purple-400 font-mono font-black text-lg mb-1'>
+                            1,000,000
+                          </p>
+                          <p className='text-purple-200/80 font-mono text-xs'>
+                            Voted best bark by community
+                          </p>
+                        </div>
+                      </div>
+                    </div>
+
+                    {/* Monthly Stay Treat */}
+                    <div className='border border-emerald-400/30 bg-black/60 rounded-lg p-4'>
+                      <div className='flex items-start gap-3 mb-2'>
+                        <Users className='w-5 h-5 text-emerald-400 mt-0.5' />
+                        <div className='flex-1'>
+                          <h4 className='text-emerald-300 font-mono font-semibold mb-1'>
+                            Monthly Stay Treat
+                          </h4>
+                          <p className='text-emerald-400 font-mono font-black text-lg mb-1'>
+                            25,000,000
+                          </p>
+                          <p className='text-emerald-200/80 font-mono text-xs'>
+                            Shared by those who have kept 100%, not sold any
+                          </p>
+                        </div>
+                      </div>
+                    </div>
+
+                    {/* Epoch Engage Bot */}
+                    <div className='border border-orange-400/30 bg-black/60 rounded-lg p-4'>
+                      <div className='flex items-start gap-3 mb-2'>
+                        <Bot className='w-5 h-5 text-orange-400 mt-0.5' />
+                        <div className='flex-1'>
+                          <h4 className='text-orange-300 font-mono font-semibold mb-1'>
+                            Epoch Engage Bot
+                          </h4>
+                          <p className='text-orange-400 font-mono font-black text-lg mb-1'>
+                            3%
+                          </p>
+                          <p className='text-orange-200/80 font-mono text-xs'>
+                            Buy Qdoge tokens with Engage points
+                          </p>
+                        </div>
+                      </div>
+                    </div>
                   </div>
                 </div>
               </div>
