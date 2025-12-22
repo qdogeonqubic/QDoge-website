@@ -170,7 +170,7 @@ const KennelClubSection: React.FC = () => {
                             Epoch Bark Treat
                           </h4>
                           <p className='text-purple-400 font-mono font-black text-lg mb-1'>
-                            1,000,000
+                            1,000,000 Qdoge
                           </p>
                           <p className='text-purple-200/80 font-mono text-xs'>
                             Voted best bark by community
@@ -188,7 +188,7 @@ const KennelClubSection: React.FC = () => {
                             Monthly Stay Treat
                           </h4>
                           <p className='text-emerald-400 font-mono font-black text-lg mb-1'>
-                            25,000,000
+                            25,000,000 Qdoge
                           </p>
                           <p className='text-emerald-200/80 font-mono text-xs'>
                             Shared by those who have kept 100%, not sold any

@@ -290,7 +290,7 @@ const AirdropMechanismsSection: React.FC = () => {
                 </div>
                 <div className='mt-4 p-4 bg-orange-400/5 border border-orange-400/30 rounded-lg'>
                   <p className='text-orange-200 font-mono text-sm lg:text-base leading-relaxed'>
-                    Beginning January 8, send QXMR to address and receive QDoge (100:1)
+                    Beginning January 8, send QXMR to [SPECIAL_WALLET] and receive QDoge (100:1)
                   </p>
                 </div>
               </motion.div>

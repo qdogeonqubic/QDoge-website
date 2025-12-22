@@ -26,6 +26,11 @@ const faqs = [
     answer:
       "Mining-linked rewards and the 2.5% monthly airdrop are scheduled to begin in Sept '26, once Doge mining parameters are locked in.",
   },
+  {
+    question: 'WHAT HAPPENS IF I MISS A WEEK?',
+    answer:
+      'You may fall behind on the Kennel List and lose access to certain treats. The system is designed to reward consistent, long-term obedience. But if you fall behind, follow weekly instructions to get back on the list!',
+  },
 ];
 
 const FAQSection: React.FC = () => {
