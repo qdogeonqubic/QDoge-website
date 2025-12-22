@@ -27,13 +27,13 @@ const RoadmapSection: React.FC = () => {
     {
       quarter: 'Q4 2025',
       items: [
-        { icon: Rocket, text: 'Launch', epoch: '189', status: 'completed' },
-        { icon: Gift, text: 'Airdrop', epoch: '190', status: 'completed' },
+        { icon: Rocket, text: 'Launch', epoch: '192', status: 'completed' },
+        { icon: Gift, text: 'Airdrop', epoch: '195', status: 'active' },
         {
           icon: Gamepad2,
           text: 'P2E Game "QDoge Rocket"',
-          epoch: '192',
-          status: 'active',
+          epoch: '198',
+          status: 'upcoming',
         },
       ],
       highlight: false,
@@ -44,77 +44,17 @@ const RoadmapSection: React.FC = () => {
         {
           icon: Palette,
           text: 'NFT Collection #1',
-          epoch: '198',
+          epoch: '202',
           status: 'upcoming',
         },
         {
           icon: Trophy,
           text: 'Qswap Listing',
-          epoch: '200',
+          epoch: '204',
           status: 'upcoming',
         },
       ],
       highlight: false,
-    },
-    {
-      quarter: 'Q2 2026',
-      items: [
-        {
-          icon: Gamepad2,
-          text: 'P2E Game #2',
-          epoch: '207',
-          status: 'upcoming',
-        },
-        {
-          icon: Palette,
-          text: 'NFT Collection #2',
-          epoch: '212',
-          status: 'upcoming',
-        },
-      ],
-      highlight: false,
-    },
-    {
-      quarter: 'Q3 2026',
-      items: [
-        {
-          icon: Palette,
-          text: 'NFT Collection #3',
-          epoch: '225',
-          status: 'upcoming',
-        },
-        {
-          icon: Gift,
-          text: 'Kennel List Airdrop #1',
-          epoch: '231',
-          status: 'upcoming',
-        },
-      ],
-      highlight: false,
-    },
-    {
-      quarter: 'Q4 2026',
-      items: [
-        {
-          icon: Gift,
-          text: 'Kennel Airdrop #2',
-          epoch: '236',
-          status: 'upcoming',
-        },
-        {
-          icon: Gift,
-          text: 'Kennel Airdrop #3',
-          epoch: '241',
-          status: 'upcoming',
-        },
-        {
-          icon: Gift,
-          text: 'Kennel Airdrop #4',
-          epoch: '246',
-          status: 'upcoming',
-        },
-      ],
-      highlight: true,
     },
   ];
 
@@ -291,7 +231,7 @@ const RoadmapSection: React.FC = () => {
                 </h3>
 
                 <p className='text-cyan-300 font-mono text-lg mb-2'>
-                  &gt; KENNEL_CLUB.INIT --TRAINING=56WEEKS --REWARDS=ENABLED
+                  &gt; KENNEL_CLUB.INIT --TRAINING=52WEEKS --REWARDS=ENABLED
                 </p>
                 <p className='text-gray-400 font-mono text-sm'>
                   Train with the elite • Earn rewards • Prepare for DOGE mining

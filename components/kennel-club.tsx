@@ -68,7 +68,7 @@ const KennelClubSection: React.FC = () => {
               <div className='flex items-center justify-between'>
                 <div className='flex items-center space-x-3'>
                   <span className='text-cyan-400 font-mono text-sm uppercase tracking-wider'>
-                    56-Week Training Program
+                    52-Week Training Program
                   </span>
                 </div>
               </div>
@@ -85,7 +85,7 @@ const KennelClubSection: React.FC = () => {
               </p>
               <p className='text-cyan-100/80 font-mono text-sm leading-relaxed'>
                 The Kennel Club is QDoge&apos;s core training ground. Top 100
-                wallets enter a 56-week discipline arc. Each week the required
+                wallets enter a 52-week discipline arc. Each week the required
                 fetch amount and the rewards both decline so the earliest, most
                 obedient trainees earn the fattest treats.
               </p>

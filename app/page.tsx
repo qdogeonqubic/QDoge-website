@@ -8,6 +8,7 @@ import FAQSection from '@/components/faq';
 import FooterSection from '@/components/footer-section';
 import KennelClubSection from '@/components/kennel-club';
 import AirdropMechanismsSection from '@/components/airdrop-mechanisms';
+import TeamSection from '@/components/team-section';
 import PageLoader from '@/components/page-loader';
 
 export default function Home() {
@@ -28,13 +29,14 @@ export default function Home() {
             <HeroSection />
             <AboutSection />
             <MarqueeBanner />
-            <KennelClubSection />
             <TokenomicsSection />
+            <KennelClubSection />
           </div>
         </div>
         <MarqueeBanner />
         <AirdropMechanismsSection />
         <RoadmapSection />
+        <TeamSection />
         <FAQSection/>
         <FooterSection />
       </main>

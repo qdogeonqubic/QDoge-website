@@ -144,7 +144,7 @@ const TokenomicsSection: React.FC = () => {
   },
     {
       title: 'MARKETING',
-      percentage: 7.5,
+      percentage: 5,
       amount: '1.575B',
       description: 'Giveaways & Promotion',
       icon: Gamepad2,
@@ -164,7 +164,7 @@ const TokenomicsSection: React.FC = () => {
   },
     {
       title: 'NFT REWARDS',
-      percentage: 7.5,
+      percentage: 6,
       amount: '1.575B',
       description: 'Future Mining Incentives',
       icon: Lock,
@@ -174,7 +174,7 @@ const TokenomicsSection: React.FC = () => {
   },
     {
       title: 'RESERVES',
-      percentage: 5,
+      percentage: 8.5,
       amount: '1.575B',
       description: 'Future Mining Incentives',
       icon: Lock,
@@ -184,7 +184,7 @@ const TokenomicsSection: React.FC = () => {
   },
     {
       title: 'GAME REWARDS',
-      percentage: 2.5,
+      percentage: 3,
       amount: '1.575B',
       description: 'Future Mining Incentives',
       icon: Lock,
@@ -277,6 +277,7 @@ const TokenomicsSection: React.FC = () => {
                       </span>
                     </div>
                     <p className='text-sm text-cyan-100/80 font-mono leading-relaxed max-w-xl lg:max-w-none mx-auto lg:mx-0'>
+                    Qdoge tokens will be held in MSVAULT wallet. Two trusted Qubic Community Members will be signers to provide more trust and accountability for QDoge.<br />
                       21,000,000,000 total supply, precision‑allocated to reward discipline, deepen liquidity, and fuel long‑term Doge mining.
                     </p>
                   </div>
@@ -422,7 +423,7 @@ const TokenomicsSection: React.FC = () => {
                 <div className='flex items-center space-x-3'>
                   <Gift className='w-5 h-5 text-cyan-400' />
                   <span className='text-cyan-400 font-mono text-sm uppercase tracking-wider'>
-                    Airdrop_Protocol
+                    Rewards_Protocol
                   </span>
                 </div>
                 <div className='flex items-center space-x-2'>
@@ -445,7 +446,7 @@ const TokenomicsSection: React.FC = () => {
                     7.5%
                   </div>
                   <div className='text-cyan-300 text-sm leading-relaxed'>
-                    Once Dogecoin mining is live, QDoge allocates 7.5% of supply to mining‑aligned airdrops. 2.5% is streamed monthly starting Sept '26 to the most obedient trainees on the Top Kennel List.
+                    QDoge allocates 7.5% of supply to mining‑aligned airdrops. 2.5% is streamed monthly starting Sept '26 to the most obedient trainees on the Top Kennel List.
                   </div>
                 </div>
 
@@ -454,10 +455,10 @@ const TokenomicsSection: React.FC = () => {
                     NFT Reward Engine
                   </div>
                   <div className='text-4xl font-black text-orange-400 mb-3'>
-                    7.5%
+                    6%
                   </div>
                   <div className='text-orange-300 text-sm leading-relaxed'>
-                    Three NFT collections (2.5% each) turn art into multipliers on QDoge rewards. Holding higher rarity means your treats scale with your discipline.
+                    Three NFT collections (2% each) turn art into multipliers on QDoge rewards. Holding higher rarity means your treats scale with your discipline.
                   </div>
                 </div>
 

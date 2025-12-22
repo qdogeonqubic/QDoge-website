@@ -148,7 +148,36 @@ const AirdropMechanismsSection: React.FC = () => {
                   <h3 className='text-2xl font-black text-cyan-300 font-mono'>Eligibility Requirements</h3>
                 </div>
                 <p className='text-cyan-200 font-mono text-sm lg:text-base leading-relaxed'>
-                  The X account must be created before <span className='text-cyan-400 font-black'>Dec 1</span> to be eligible.
+                  Register your Qubic wallet and{' '}
+                  <a
+                    href='https://x.com/QDogeOnQubic'
+                    target='_blank'
+                    rel='noopener noreferrer'
+                    className='text-cyan-400 hover:text-cyan-300 underline font-black transition-colors'
+                  >
+                    X
+                  </a>{' '}
+                  account with{' '}
+                  <a
+                    href='https://zealy.io/cw/qdoge'
+                    target='_blank'
+                    rel='noopener noreferrer'
+                    className='text-cyan-400 hover:text-cyan-300 underline font-black transition-colors'
+                  >
+                    Zealy
+                  </a>{' '}
+                  to enter the Kennel.
+                  <br />
+                  The{' '}
+                  <a
+                    href='https://x.com/QDogeOnQubic'
+                    target='_blank'
+                    rel='noopener noreferrer'
+                    className='text-cyan-400 hover:text-cyan-300 underline font-black transition-colors'
+                  >
+                    X
+                  </a>{' '}
+                  account must be created before <span className='text-cyan-400 font-black'>Dec 1</span> to be eligible.
                 </p>
               </motion.div>
 
@@ -196,7 +225,7 @@ const AirdropMechanismsSection: React.FC = () => {
                     </button>
                   </div>
                   <p className='text-purple-200 font-mono text-sm lg:text-base'>
-                    By <span className='text-purple-400 font-black'>Dec 31 12 UTC</span>
+                    By <span className='text-purple-400 font-black'>Jan 5 12 UTC</span>
                   </p>
                 </div>
               </motion.div>
@@ -214,7 +243,7 @@ const AirdropMechanismsSection: React.FC = () => {
                   <h3 className='text-2xl font-black text-emerald-300 font-mono'>Airdrop Timeline</h3>
                 </div>
                 <p className='text-emerald-200 font-mono text-sm lg:text-base leading-relaxed'>
-                  AirDrop to start <span className='text-emerald-400 font-black'>January 1 12 UTC</span>
+                  AirDrop to start <span className='text-emerald-400 font-black'>January 7 12 UTC</span>
                 </p>
               </motion.div>
 
