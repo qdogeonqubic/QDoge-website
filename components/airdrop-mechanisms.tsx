@@ -172,7 +172,7 @@ const AirdropMechanismsSection: React.FC = () => {
               </motion.div>
 
               {/* Participation Instructions */}
-              <motion.div
+              {/* <motion.div
                 className='border border-purple-400/30 bg-purple-400/5 rounded-lg p-6 space-y-4'
                 initial={{ opacity: 0, x: -20 }}
                 whileInView={{ opacity: 1, x: 0 }}
@@ -221,7 +221,7 @@ const AirdropMechanismsSection: React.FC = () => {
                     <span className='text-purple-400 font-black'>999k</span> will go in Reserve Fund for project development
                   </p>
                 </div>
-              </motion.div>
+              </motion.div> */}
 
               {/* Airdrop Timeline */}
               <motion.div
@@ -236,7 +236,7 @@ const AirdropMechanismsSection: React.FC = () => {
                   <h3 className='text-2xl font-black text-emerald-300 font-mono'>Airdrop Timeline</h3>
                 </div>
                 <p className='text-emerald-200 font-mono text-sm lg:text-base leading-relaxed'>
-                  AirDrop to start <span className='text-emerald-400 font-black'>January 7 12 UTC</span>
+                  AirDrop to start <span className='text-emerald-400 font-black'>January 21 12 UTC</span>
                 </p>
               </motion.div>
 
@@ -290,7 +290,7 @@ const AirdropMechanismsSection: React.FC = () => {
                 </div>
                 <div className='mt-4 p-4 bg-orange-400/5 border border-orange-400/30 rounded-lg'>
                   <p className='text-orange-200 font-mono text-sm lg:text-base leading-relaxed'>
-                    Beginning January 8, send QXMR to [SPECIAL_WALLET] and receive QDoge (100:1)
+                    Beginning January 22, send QXMR to [SPECIAL_WALLET] and receive QDoge (100:1)
                   </p>
                 </div>
               </motion.div>

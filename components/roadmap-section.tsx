@@ -28,11 +28,11 @@ const RoadmapSection: React.FC = () => {
       quarter: 'Q4 2025',
       items: [
         { icon: Rocket, text: 'Launch', epoch: '192', status: 'completed' },
-        { icon: Gift, text: 'Airdrop', epoch: '195', status: 'active' },
+        { icon: Gift, text: 'Airdrop', epoch: '197', status: 'active' },
         {
           icon: Gamepad2,
           text: 'P2E Game "QDoge Rocket"',
-          epoch: '198',
+          epoch: '200',
           status: 'upcoming',
         },
       ],
@@ -44,17 +44,78 @@ const RoadmapSection: React.FC = () => {
         {
           icon: Palette,
           text: 'NFT Collection #1',
-          epoch: '202',
+          epoch: '204',
           status: 'upcoming',
         },
         {
           icon: Trophy,
           text: 'Qswap Listing',
-          epoch: '204',
+          epoch: '205',
           status: 'upcoming',
         },
       ],
       highlight: false,
+    },
+    {
+      quarter: 'Q2 2026',
+      items: [
+        {
+          icon: Gamepad2,
+          text: 'P2E Game #2',
+          epoch: '209',
+          status: 'upcoming',
+        },
+        {
+          icon: Palette,
+          text: 'NFT Collection #2',
+          epoch: '214',
+          status: 'upcoming',
+        },
+      ],
+      highlight: false,
+    },
+    {
+      quarter: 'Q3 2026',
+      items: [
+        {
+          icon: Palette,
+          text: 'NFT Collection #3',
+          epoch: '225',
+          status: 'upcoming',
+        },
+        {
+          icon: Gift,
+          text: 'Kennel List Airdrop #1',
+          epoch: '231',
+          status: 'upcoming',
+        },
+      ],
+      highlight: false,
+    },
+    {
+      quarter: 'Q4 2026',
+      subtitle: '(the real treats begin)',
+      items: [
+        {
+          icon: Gift,
+          text: 'Kennel Airdrop #2',
+          epoch: '236',
+          status: 'upcoming',
+        },
+        {
+          icon: Gift,
+          text: 'Kennel Airdrop #3',
+          epoch: '241',
+          status: 'upcoming',
+        },
+        {
+          icon: Gift,
+          text: 'Kennel Airdrop #4',
+          epoch: '246',
+          status: 'upcoming',
+        },
+      ],
+      highlight: true,
     },
   ];
 
@@ -139,15 +200,28 @@ const RoadmapSection: React.FC = () => {
                         >
                           {index + 1}
                         </div>
-                        <h3
-                          className={`text-2xl font-black font-mono ${
-                            phase.highlight
-                              ? 'text-yellow-400'
-                              : 'text-cyan-400'
-                          }`}
-                        >
-                          {phase.quarter}
-                        </h3>
+                        <div>
+                          <h3
+                            className={`text-2xl font-black font-mono ${
+                              phase.highlight
+                                ? 'text-yellow-400'
+                                : 'text-cyan-400'
+                            }`}
+                          >
+                            {phase.quarter}
+                          </h3>
+                          {phase.subtitle && (
+                            <p
+                              className={`text-xs font-mono mt-1 ${
+                                phase.highlight
+                                  ? 'text-yellow-300/80'
+                                  : 'text-cyan-300/80'
+                              }`}
+                            >
+                              {phase.subtitle}
+                            </p>
+                          )}
+                        </div>
                       </div>
 
                       <div
