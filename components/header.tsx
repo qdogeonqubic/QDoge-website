@@ -13,7 +13,7 @@ import { useEffect, useState } from 'react';
 // Navigation items
 const navigationItems = [
   { label: 'About', scrollTo: '#about' },
-  { label: 'Kennel Club',     href: 'https://kennelclub.qdogeonqubic.com/',
+  { label: 'Kennel Club', href: 'https://kennelclub.qdogeonqubic.com/',
     external: true,
   },
   { label: 'Tokenomics', scrollTo: '#tokenomics' },
