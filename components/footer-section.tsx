@@ -47,7 +47,9 @@ const FooterSection: React.FC = () => {
 
   const quickLinks = [
     { name: 'About', href: '#about' },
-    { name: 'Kennel Club', href: '#kennel-club' },
+    { name: 'Kennel Club',     href: 'https://kennelclub.qdogeonqubic.com/',
+      external: true,
+    g},
     { name: 'Tokenomics', href: '#tokenomics' },
     { name: 'Airdrop', href: '#airdrop-mechanisms' },
     { name: 'Roadmap', href: '#roadmap' },

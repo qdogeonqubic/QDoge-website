@@ -13,7 +13,9 @@ import { useEffect, useState } from 'react';
 // Navigation items
 const navigationItems = [
   { label: 'About', scrollTo: '#about' },
-  { label: 'Kennel Club', scrollTo: '#kennel-club' },
+  { label: 'Kennel Club',     href: 'https://kennelclub.qdogeonqubic.com/',
+    external: true,
+  },
   { label: 'Tokenomics', scrollTo: '#tokenomics' },
   { label: 'Airdrop', scrollTo: '#airdrop-mechanisms' },
   { label: 'Roadmap', scrollTo: '#roadmap' },
