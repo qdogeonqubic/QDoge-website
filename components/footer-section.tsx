@@ -49,7 +49,7 @@ const FooterSection: React.FC = () => {
     { name: 'About', href: '#about' },
     { name: 'Kennel Club', href: 'https://kennelclub.qdogeonqubic.com/',
       external: true,
-    g},
+    },
     { name: 'Tokenomics', href: '#tokenomics' },
     { name: 'Airdrop', href: '#airdrop-mechanisms' },
     { name: 'Roadmap', href: '#roadmap' },
