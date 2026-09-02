@@ -114,7 +114,7 @@ export function ViaBtcMinerSection() {
 
   const load = useCallback(async () => {
     try {
-      const res = await fetch('/api/mining/viabtc');
+      const res = await fetch('/api/mining/viabtc', { cache: 'no-store' });
       const payload = (await res.json()) as ViaBtcPayload;
       if (!res.ok || payload.error) {
         setError(payload.error ?? `viabtc ${res.status}`);

@@ -374,7 +374,9 @@ export function TokenHoldersPageContent() {
   const load = useCallback(async (target: TokenAsset) => {
     setLoadError(null);
     try {
-      const res = await fetch(`/api/tokens/holders?asset=${target}`);
+      const res = await fetch(`/api/tokens/holders?asset=${target}`, {
+        cache: 'no-store',
+      });
       if (!res.ok) {
         setLoadError(`holders ${res.status}`);
         return;
